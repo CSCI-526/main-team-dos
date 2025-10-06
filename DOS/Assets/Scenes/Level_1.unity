@@ -1721,6 +1721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 330585545}
+  player: {fileID: 0}
 --- !u!114 &1161673513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3130,11 +3131,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8860414172206248023, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.43
+      value: -3.19
       objectReference: {fileID: 0}
     - target: {fileID: 8860414172206248023, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 46.11
+      value: 46.02
       objectReference: {fileID: 0}
     - target: {fileID: 8860414172206248023, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3347,11 +3348,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609629808061478742, guid: 9775974b0b52943ebb781498fac13586, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.63
+      value: -7.66
       objectReference: {fileID: 0}
     - target: {fileID: 8609629808061478742, guid: 9775974b0b52943ebb781498fac13586, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 46.07
+      value: 45.66
       objectReference: {fileID: 0}
     - target: {fileID: 8609629808061478742, guid: 9775974b0b52943ebb781498fac13586, type: 3}
       propertyPath: m_LocalPosition.z
