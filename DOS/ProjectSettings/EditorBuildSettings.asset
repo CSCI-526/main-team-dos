@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LeaderBoard.unity
     guid: 3f421e396c22045e58412fc71320d36e
+  - enabled: 1
+    path: Assets/Scenes/Tut1_Enemy_Gate.unity
+    guid: 06ce6e69c946740208024660dca2c29f
+  - enabled: 1
+    path: Assets/Scenes/Tut1_PortalsBasic.unity
+    guid: 9bb795a6494454142b553d61b2f180e8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
