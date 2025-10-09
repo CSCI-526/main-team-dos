@@ -822,7 +822,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 288677459}
+      - m_Target: {fileID: 183312257}
         m_TargetAssemblyTypeName: StarterMenu, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
