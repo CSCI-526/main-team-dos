@@ -9,6 +9,9 @@ public class PortalGun : MonoBehaviour
     public Transform raycastOrigin;
     public float portalHalfWidth = 0.5f;
     public float portalDepth = 0.1f;
+    
+    // NEW: Add a layer mask to identify portal-compatible surfaces.
+    public LayerMask portalableSurfaceLayer;
 
     private GameObject activeBluePortal;
     private GameObject activeOrangePortal;
@@ -33,11 +36,38 @@ public class PortalGun : MonoBehaviour
 
     void ShootPortal(GameObject portalPrefab, ref GameObject activePortal)
     {
+        // --- MODIFICATION START ---
+
+        // Define the player's center (assuming the gun is a child of the player GameObject).
+        Vector2 playerCenter = transform.parent.position;
+        Vector2 gunTipPosition = raycastOrigin.position;
+
+        // Calculate the direction and distance from the player to the gun's tip.
+        Vector2 playerToGunDir = (gunTipPosition - playerCenter).normalized;
+        float playerToGunDist = Vector2.Distance(playerCenter, gunTipPosition);
+
+        // Pre-check raycast to see if the gun is clipping through a wall.
+        RaycastHit2D clipCheckHit = Physics2D.Raycast(playerCenter, playerToGunDir, playerToGunDist, portalableSurfaceLayer);
+
+        // The starting point for our main raycast. Defaults to the gun's tip.
+        Vector2 effectiveRaycastOrigin = raycastOrigin.position;
+
+        // If the pre-check hits something, the gun is clipping.
+        // We update our starting point to be the exact point of collision.
+        if (clipCheckHit.collider != null)
+        {
+            // Add a tiny offset back to prevent starting the raycast inside the wall
+            effectiveRaycastOrigin = clipCheckHit.point - (playerToGunDir * 0.01f);
+        }
+        
+        // --- MODIFICATION END ---
+        
         Vector2 direction = raycastOrigin.right;
         int playerLayer = LayerMask.NameToLayer("Player");
         int layerMaskToIgnorePlayer = ~(1 << playerLayer);
 
-        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin.position, direction, 100f, layerMaskToIgnorePlayer);
+        // Use the new 'effectiveRaycastOrigin' for the main raycast.
+        RaycastHit2D hit = Physics2D.Raycast(effectiveRaycastOrigin, direction, 100f, layerMaskToIgnorePlayer);
 
         if (hit.collider != null && hit.collider.CompareTag("PortalGround"))
         {
@@ -65,7 +95,6 @@ public class PortalGun : MonoBehaviour
                 {
                     amplitude.LogEvent("shot_orange_portal", eventProperties);
                 }
-                    
             }
         }
     }
@@ -104,7 +133,6 @@ public class PortalGun : MonoBehaviour
         {
             if (col != targetSurface)
             {
-                // If we find any other collider, the placement is invalid.
                 Debug.Log("Placement failed: Obstruction detected: " + col.name);
                 return false;
             }
