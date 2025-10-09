@@ -3,11 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class StarterMenu : MonoBehaviour
 {
+    // Loads Level 1
+    public void StartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_1");  // Ensure your Level_1 scene name matches exactly
+    }
+
     // Loads Tutorial 1
     public void LoadTutorial1()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Tut1_PortalsBasic");  // Make sure the scene name matches exactly
+        SceneManager.LoadScene("Tut1_PortalsBasic");
     }
 
     // Loads Tutorial 2
@@ -24,7 +31,7 @@ public class StarterMenu : MonoBehaviour
         SceneManager.LoadScene("StarterPage");
     }
 
-    // Generic Quit (optional)
+    // Generic Quit
     public void QuitGame()
     {
         Debug.Log("Quit Game");
