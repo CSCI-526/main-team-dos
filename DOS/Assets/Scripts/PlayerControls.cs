@@ -15,20 +15,22 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = false;
     private bool _controlsOverriddenByPortal = false;
 
+    // --- NEW: A simple counter for a 2-frame grace period after teleporting ---
+    private int portalGraceFrames;
+
     private bool facingRight = true;
     private Transform portalGunTransform;
 
     public void OnTeleport()
     {
         _controlsOverriddenByPortal = true;
+        portalGraceFrames = 2; // Start the 2-frame grace period
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
-
-        // Get the portal gun
         portalGunTransform = GetComponentInChildren<PortalGun>()?.transform;
     }
 
@@ -36,14 +38,19 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // If portal has overridden controls AND the player is grounded
-        if (_controlsOverriddenByPortal && isGrounded)
+        // If we are in the grace period, just count down and do nothing else.
+        if (portalGraceFrames > 0)
         {
-            // Stop the horizontal sliding from the portals momentum.
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-
-            // Give control back to the player immediately.
-            _controlsOverriddenByPortal = false;
+            portalGraceFrames--;
+        }
+        else
+        {
+            // This is your ORIGINAL logic. It now only runs AFTER the grace period is over.
+            if (_controlsOverriddenByPortal && isGrounded)
+            {
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+                _controlsOverriddenByPortal = false;
+            }
         }
 
         // Clamp fall speed (existing logic).
@@ -55,9 +62,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // If controls are overridden, check if the player wants to take back control mid-air.
+        // If controls are overridden...
         if (_controlsOverriddenByPortal)
         {
+            // Also, prevent the player from taking back control with input during the grace period.
+            if (portalGraceFrames > 0)
+            {
+                return;
+            }
+            
+            // This is your ORIGINAL logic for retaking control mid-air.
             bool playerIsTryingToMove = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f || Input.GetButtonDown("Jump");
             if (playerIsTryingToMove)
             {
@@ -68,7 +82,7 @@ public class PlayerController : MonoBehaviour
         // If controls are still overridden, don't process normal input.
         if (_controlsOverriddenByPortal) return;
 
-        // Normal movement logic.
+        // Normal movement logic (original).
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
 
@@ -100,13 +114,8 @@ public class PlayerController : MonoBehaviour
         if (portalGunTransform != null)
         {
             Vector3 gunScale = portalGunTransform.localScale;
-
-            // Mirror horizontally
             gunScale.x *= -1;
-
-            // Mirror vertically too to keep top/bottom consistent
             gunScale.y *= -1;
-
             portalGunTransform.localScale = gunScale;
 
             // Flip Raycast origin position / Helps get the aim on the end of the gun.
