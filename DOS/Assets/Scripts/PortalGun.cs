@@ -54,7 +54,6 @@ public class PortalGun : MonoBehaviour
 
     void ShootPortal(GameObject portalPrefab, ref GameObject activePortal)
     {
-        // ... (This method is unchanged, it still calls AdjustAndValidatePlacement) ...
         Vector2 playerCenter = transform.parent.position;
         Vector2 gunTipPosition = raycastOrigin.position;
         Vector2 playerToGunDir = (gunTipPosition - playerCenter).normalized;
@@ -99,7 +98,6 @@ public class PortalGun : MonoBehaviour
         }
     }
     
-    // --- NEW HELPER FUNCTION to check if a given point is fully on a surface ---
     private bool IsPositionOnSurface(Vector2 point, Vector2 normal, int layerMask)
     {
         Vector2 portalRightDir = new Vector2(normal.y, -normal.x);
@@ -115,13 +113,12 @@ public class PortalGun : MonoBehaviour
     }
 
 
-    // --- MODIFIED AdjustAndValidatePlacement function ---
     private bool AdjustAndValidatePlacement(Vector2 point, Vector2 normal, int layerMask, Collider2D targetSurface, out Vector2 adjustedPoint)
     {
         adjustedPoint = point; 
         Vector2 portalRightDir = new Vector2(normal.y, -normal.x);
 
-        // --- Step 1: Handle hanging off an edge (same as before) ---
+        // Handle hanging off an edge 
         if (!IsPositionOnSurface(point, normal, layerMask))
         {
             // Propose a nudged position
@@ -139,7 +136,7 @@ public class PortalGun : MonoBehaviour
             if (!IsPositionOnSurface(adjustedPoint, normal, layerMask)) { return false; }
         }
 
-        // --- Step 2: Check for obstructions, with new corner-handling logic ---
+        // Check for obstructions
         float portalWidth = portalHalfWidth * 2;
         Vector2 boxCenter = adjustedPoint - (normal * (portalDepth / 2));
         Vector2 boxSize = new Vector2(portalWidth, portalDepth);
@@ -161,15 +158,14 @@ public class PortalGun : MonoBehaviour
                     Vector2 finalPushDirection = (dot > 0) ? portalRightDir : -portalRightDir;
                     
                     // Propose a new position by nudging it away from the corner.
-                    // The distance is the amount of overlap plus a tiny buffer.
                     float overlap = portalHalfWidth - Vector2.Distance(adjustedPoint, closestPointOnObstacle);
                     Vector2 finalNudgedPoint = adjustedPoint + finalPushDirection * (overlap + 0.01f);
 
-                    // Final check: Is this newly nudged position fully on the surface?
+                    // Check if the newly nudged position fully on the surface
                     if (IsPositionOnSurface(finalNudgedPoint, normal, layerMask))
                     {
                         adjustedPoint = finalNudgedPoint;
-                        // One last check for other obstructions at the new spot
+                        // Check for other obstructions at the new spot
                         Collider2D[] finalObstructions = Physics2D.OverlapBoxAll(finalNudgedPoint - (normal * (portalDepth / 2)), boxSize, angle, layerMask);
                         foreach (var finalCol in finalObstructions) { if (finalCol != targetSurface) return false; }
                         return true;
@@ -181,7 +177,7 @@ public class PortalGun : MonoBehaviour
                 }
                 else
                 {
-                    // It's a non-portalable obstruction (like an enemy). Fail.
+                    // Its a non-portalable obstruction
                     return false;
                 }
             }
