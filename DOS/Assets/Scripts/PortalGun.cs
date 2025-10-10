@@ -14,8 +14,8 @@ public class PortalGun : MonoBehaviour
     public LayerMask portalableSurfaceLayer;
     
     [Header("Beam Effect")]
-    public Color blueBeamColor = Color.cyan;
-    public Color orangeBeamColor = Color.Lerp(Color.red, Color.yellow, 0.5f);
+    public Color blueBeamColor;
+    public Color orangeBeamColor;
     public float beamDuration = 0.1f;
     private LineRenderer beamLine;
 
@@ -30,6 +30,9 @@ public class PortalGun : MonoBehaviour
         
         beamLine = GetComponent<LineRenderer>();
         if (beamLine != null) { beamLine.enabled = false; }
+
+        ColorUtility.TryParseHtmlString("#0D0D8C", out blueBeamColor);
+        ColorUtility.TryParseHtmlString("#FF6E00", out orangeBeamColor);
     }
 
     void Update()
