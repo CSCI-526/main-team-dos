@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; // Added for Coroutines
 using System.Collections.Generic;
 
 public class PortalGun : MonoBehaviour
@@ -10,6 +11,14 @@ public class PortalGun : MonoBehaviour
     public float portalHalfWidth = 0.5f;
     public float portalDepth = 0.1f;
     public LayerMask portalableSurfaceLayer;
+    
+    // --- NEW: Beam Effect Variables ---
+    [Header("Beam Effect")]
+    public Color blueBeamColor = Color.cyan;
+    public Color orangeBeamColor = Color.Lerp(Color.red, Color.yellow, 0.5f);
+    public float beamDuration = 0.1f;
+    private LineRenderer beamLine;
+    // ---
 
     private GameObject activeBluePortal;
     private GameObject activeOrangePortal;
@@ -22,6 +31,14 @@ public class PortalGun : MonoBehaviour
         {
             amplitude = gameObject.AddComponent<AmplitudeAnalytics>();
         }
+        
+        // --- NEW: Get the Line Renderer component ---
+        beamLine = GetComponent<LineRenderer>();
+        if (beamLine != null)
+        {
+            beamLine.enabled = false;
+        }
+        // ---
     }
 
     void Update()
@@ -31,55 +48,63 @@ public class PortalGun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) { DeleteAllPortals(); }
     }
 
+    // --- NEW: Coroutine to manage the beam's lifecycle ---
+    private IEnumerator ShootBeam(Vector3 startPoint, Vector3 endPoint, Color color)
+    {
+        if (beamLine == null) yield break;
+
+        beamLine.enabled = true;
+        beamLine.startColor = color;
+        beamLine.endColor = color;
+        beamLine.SetPosition(0, startPoint);
+        beamLine.SetPosition(1, endPoint);
+
+        yield return new WaitForSeconds(beamDuration);
+
+        beamLine.enabled = false;
+    }
+    // ---
+
     void ShootPortal(GameObject portalPrefab, ref GameObject activePortal)
     {
+        // ... (all the existing player/gun position and layer mask logic remains the same)
         Vector2 playerCenter = transform.parent.position;
         Vector2 gunTipPosition = raycastOrigin.position;
         Vector2 playerToGunDir = (gunTipPosition - playerCenter).normalized;
         float playerToGunDist = Vector2.Distance(playerCenter, gunTipPosition);
         RaycastHit2D clipCheckHit = Physics2D.Raycast(playerCenter, playerToGunDir, playerToGunDist, portalableSurfaceLayer);
         Vector2 effectiveRaycastOrigin = raycastOrigin.position;
-
-        if (clipCheckHit.collider != null)
-        {
-            effectiveRaycastOrigin = clipCheckHit.point - (playerToGunDir * 0.01f);
-        }
-        
+        if (clipCheckHit.collider != null) { effectiveRaycastOrigin = clipCheckHit.point - (playerToGunDir * 0.01f); }
         Vector2 direction = raycastOrigin.right;
-        
         int playerLayer = LayerMask.NameToLayer("Player");
         int portalLayer = LayerMask.NameToLayer("Portal");
         int shootLayerMask = ~((1 << playerLayer) | (1 << portalLayer));
         int obstructionCheckLayerMask = ~(1 << playerLayer);
+        // ---
 
         RaycastHit2D hit = Physics2D.Raycast(effectiveRaycastOrigin, direction, 100f, shootLayerMask);
 
+        // --- NEW: Beam Firing Logic ---
+        Vector3 beamStartPoint = raycastOrigin.position;
+        Vector3 beamEndPoint = hit.collider != null ? (Vector3)hit.point : beamStartPoint + (Vector3)direction * 100f;
+        Color beamColor = (portalPrefab == bluePortalPrefab) ? blueBeamColor : orangeBeamColor;
+        StartCoroutine(ShootBeam(beamStartPoint, beamEndPoint, beamColor));
+        // ---
+        
         if (hit.collider != null && hit.collider.CompareTag("PortalGround"))
         {
-            // Temporarily disable the collider of the portal we are trying to replace.
+            // ... (The rest of your IsPlacementValid and portal instantiation logic remains the same)
             Collider2D existingPortalCollider = null;
             if (activePortal != null)
             {
                 existingPortalCollider = activePortal.GetComponent<Collider2D>();
-                if (existingPortalCollider != null)
-                {
-                    existingPortalCollider.enabled = false;
-                }
+                if (existingPortalCollider != null) { existingPortalCollider.enabled = false; }
             }
-
-            // Perform the placement check and ignore the old portal
             bool is_valid = IsPlacementValid(hit.point, hit.normal, obstructionCheckLayerMask, hit.collider);
-            
-            // Re-enable the collider immediately after the check.
-            if (existingPortalCollider != null)
-            {
-                existingPortalCollider.enabled = true;
-            }
+            if (existingPortalCollider != null) { existingPortalCollider.enabled = true; }
 
-            // If the placement was valid, proceed to replace the portal.
             if (is_valid)
             {
-            
                 if (activePortal != null) Destroy(activePortal);
                 activePortal = Instantiate(portalPrefab, hit.point, Quaternion.identity);
                 activePortal.transform.up = hit.normal;
@@ -87,21 +112,14 @@ public class PortalGun : MonoBehaviour
 
                 var eventProperties = new Dictionary<string, object>
                 {
-                    { "x_position", hit.point.x },
-                    { "y_position", hit.point.y },
-                    { "surface_tag", hit.collider.tag },
-                    { "surface_name", hit.collider.name }
+                    { "x_position", hit.point.x }, { "y_position", hit.point.y },
+                    { "surface_tag", hit.collider.tag }, { "surface_name", hit.collider.name }
                 };
 
-                if (portalPrefab == bluePortalPrefab)
-                {
-                    amplitude.LogEvent("shot_blue_portal", eventProperties);
-                }
-                else
-                {
-                    amplitude.LogEvent("shot_orange_portal", eventProperties);
-                }
+                if (portalPrefab == bluePortalPrefab) { amplitude.LogEvent("shot_blue_portal", eventProperties); }
+                else { amplitude.LogEvent("shot_orange_portal", eventProperties); }
             }
+            // ---
         }
     }
     
