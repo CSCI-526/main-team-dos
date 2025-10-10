@@ -6,28 +6,32 @@ public class PlayerCollision : MonoBehaviour
 {
     public TextMeshProUGUI missionFailedText;
     private bool isFailing = false;
+    
+    // --- NEW: Add a reference to the PlayerController ---
+    private PlayerController playerController;
+
+    // --- NEW: Get the reference in the Start method ---
+    void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isFailing && collision.collider.CompareTag("Enemy"))
+        // --- MODIFIED: Added a check for player invincibility ---
+        if (!isFailing && collision.collider.CompareTag("Enemy") && (playerController == null || !playerController.IsInvincible))
         {
             isFailing = true;
-
-            // Show Mission Failed
             missionFailedText.text = "MISSION FAILED";
-
-            // Freeze everything in the scene
             Time.timeScale = 0f;
-
-            // Restart after short delay (needs unscaled time)
             StartCoroutine(RestartScene());
         }
     }
 
     private System.Collections.IEnumerator RestartScene()
     {
-        yield return new WaitForSecondsRealtime(2f); // wait 2s in real time
-        Time.timeScale = 1f; // unfreeze
-        SceneManager.LoadScene("Starter"); // reload starter scene
+        yield return new WaitForSecondsRealtime(2f);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Starter");
     }
 }

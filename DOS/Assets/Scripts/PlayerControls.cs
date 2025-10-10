@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
     public float maxFallSpeed = 15f;
     public float speed = 5f;
     public float jumpForce = 5f;
+    
+    // --- NEW: Add a public variable for invincibility duration ---
+    public float postTeleportInvincibility = 0.2f;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
@@ -14,17 +17,27 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool _controlsOverriddenByPortal = false;
-
-    // --- NEW: A simple counter for a 2-frame grace period after teleporting ---
     private int portalGraceFrames;
-
     private bool facingRight = true;
     private Transform portalGunTransform;
+
+    // --- NEW: Public property to check invincibility state ---
+    public bool IsInvincible { get; private set; } = false;
 
     public void OnTeleport()
     {
         _controlsOverriddenByPortal = true;
-        portalGraceFrames = 2; // Start the 2-frame grace period
+        portalGraceFrames = 2;
+        // --- NEW: Start the invincibility coroutine ---
+        StartCoroutine(InvincibilityCoroutine());
+    }
+
+    // --- NEW: Coroutine to manage invincibility frames ---
+    private IEnumerator InvincibilityCoroutine()
+    {
+        IsInvincible = true;
+        yield return new WaitForSeconds(postTeleportInvincibility);
+        IsInvincible = false;
     }
 
     void Start()
@@ -38,14 +51,12 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // If we are in the grace period, just count down and do nothing else.
         if (portalGraceFrames > 0)
         {
             portalGraceFrames--;
         }
         else
         {
-            // This is your ORIGINAL logic. It now only runs AFTER the grace period is over.
             if (_controlsOverriddenByPortal && isGrounded)
             {
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -53,7 +64,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // Clamp fall speed (existing logic).
         if (rb.linearVelocity.y < -maxFallSpeed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
@@ -62,16 +72,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // If controls are overridden...
         if (_controlsOverriddenByPortal)
         {
-            // Also, prevent the player from taking back control with input during the grace period.
             if (portalGraceFrames > 0)
             {
                 return;
             }
             
-            // This is your ORIGINAL logic for retaking control mid-air.
             bool playerIsTryingToMove = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f || Input.GetButtonDown("Jump");
             if (playerIsTryingToMove)
             {
@@ -79,10 +86,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // If controls are still overridden, don't process normal input.
         if (_controlsOverriddenByPortal) return;
 
-        // Normal movement logic (original).
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
 
@@ -105,12 +110,10 @@ public class PlayerController : MonoBehaviour
     {
         facingRight = !facingRight;
 
-        // Flip player sprite
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
 
-        // Flip the gun properly
         if (portalGunTransform != null)
         {
             Vector3 gunScale = portalGunTransform.localScale;
@@ -118,7 +121,6 @@ public class PlayerController : MonoBehaviour
             gunScale.y *= -1;
             portalGunTransform.localScale = gunScale;
 
-            // Flip Raycast origin position / Helps get the aim on the end of the gun.
             var gun = portalGunTransform.GetComponent<PortalGun>();
             if (gun != null && gun.raycastOrigin != null)
             {
