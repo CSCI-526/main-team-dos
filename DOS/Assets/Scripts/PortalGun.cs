@@ -32,13 +32,12 @@ public class PortalGun : MonoBehaviour
             amplitude = gameObject.AddComponent<AmplitudeAnalytics>();
         }
         
-        // --- NEW: Get the Line Renderer component ---
         beamLine = GetComponent<LineRenderer>();
         if (beamLine != null)
         {
             beamLine.enabled = false;
         }
-        // ---
+        
     }
 
     void Update()
@@ -48,7 +47,6 @@ public class PortalGun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) { DeleteAllPortals(); }
     }
 
-    // --- NEW: Coroutine to manage the beam's lifecycle ---
     private IEnumerator ShootBeam(Vector3 startPoint, Vector3 endPoint, Color color)
     {
         if (beamLine == null) yield break;
@@ -63,11 +61,11 @@ public class PortalGun : MonoBehaviour
 
         beamLine.enabled = false;
     }
-    // ---
+    
 
     void ShootPortal(GameObject portalPrefab, ref GameObject activePortal)
     {
-        // ... (all the existing player/gun position and layer mask logic remains the same)
+        
         Vector2 playerCenter = transform.parent.position;
         Vector2 gunTipPosition = raycastOrigin.position;
         Vector2 playerToGunDir = (gunTipPosition - playerCenter).normalized;
@@ -80,20 +78,18 @@ public class PortalGun : MonoBehaviour
         int portalLayer = LayerMask.NameToLayer("Portal");
         int shootLayerMask = ~((1 << playerLayer) | (1 << portalLayer));
         int obstructionCheckLayerMask = ~(1 << playerLayer);
-        // ---
 
         RaycastHit2D hit = Physics2D.Raycast(effectiveRaycastOrigin, direction, 100f, shootLayerMask);
 
-        // --- NEW: Beam Firing Logic ---
         Vector3 beamStartPoint = raycastOrigin.position;
         Vector3 beamEndPoint = hit.collider != null ? (Vector3)hit.point : beamStartPoint + (Vector3)direction * 100f;
         Color beamColor = (portalPrefab == bluePortalPrefab) ? blueBeamColor : orangeBeamColor;
         StartCoroutine(ShootBeam(beamStartPoint, beamEndPoint, beamColor));
-        // ---
+        
         
         if (hit.collider != null && hit.collider.CompareTag("PortalGround"))
         {
-            // ... (The rest of your IsPlacementValid and portal instantiation logic remains the same)
+            
             Collider2D existingPortalCollider = null;
             if (activePortal != null)
             {
@@ -119,7 +115,7 @@ public class PortalGun : MonoBehaviour
                 if (portalPrefab == bluePortalPrefab) { amplitude.LogEvent("shot_blue_portal", eventProperties); }
                 else { amplitude.LogEvent("shot_orange_portal", eventProperties); }
             }
-            // ---
+            
         }
     }
     
