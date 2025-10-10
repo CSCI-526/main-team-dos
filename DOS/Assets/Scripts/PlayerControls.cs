@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 5f;
     
-    // --- NEW: Add a public variable for invincibility duration ---
+    // Public variable for invincibility duration
     public float postTeleportInvincibility = 0.2f;
 
     [SerializeField] private Transform groundCheck;
@@ -21,18 +21,18 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private Transform portalGunTransform;
 
-    // --- NEW: Public property to check invincibility state ---
+    // Public property to check invincibility state ---
     public bool IsInvincible { get; private set; } = false;
 
     public void OnTeleport()
     {
         _controlsOverriddenByPortal = true;
         portalGraceFrames = 2;
-        // --- NEW: Start the invincibility coroutine ---
+        // Start the invincibility coroutine ---
         StartCoroutine(InvincibilityCoroutine());
     }
 
-    // --- NEW: Coroutine to manage invincibility frames ---
+    // Coroutine to manage invincibility frames ---
     private IEnumerator InvincibilityCoroutine()
     {
         IsInvincible = true;

@@ -36,31 +36,28 @@ public class PortalGun : MonoBehaviour
 
     void ShootPortal(GameObject portalPrefab, ref GameObject activePortal)
     {
-        // --- MODIFICATION START ---
-
-        // Define the player's center (assuming the gun is a child of the player GameObject).
+        // Define player center 
         Vector2 playerCenter = transform.parent.position;
         Vector2 gunTipPosition = raycastOrigin.position;
 
-        // Calculate the direction and distance from the player to the gun's tip.
+        // Calculate the direction and distance from the player to the gun's tip
         Vector2 playerToGunDir = (gunTipPosition - playerCenter).normalized;
         float playerToGunDist = Vector2.Distance(playerCenter, gunTipPosition);
 
-        // Pre-check raycast to see if the gun is clipping through a wall.
+        // Pre-check raycast to see if the gun is clipping through a wall
         RaycastHit2D clipCheckHit = Physics2D.Raycast(playerCenter, playerToGunDir, playerToGunDist, portalableSurfaceLayer);
 
-        // The starting point for our main raycast. Defaults to the gun's tip.
+        // The starting point for our main raycast
         Vector2 effectiveRaycastOrigin = raycastOrigin.position;
 
-        // If the pre-check hits something, the gun is clipping.
-        // We update our starting point to be the exact point of collision.
+        // If the pre-check hits something, the gun is clipping
+        // Update starting point to be the exact point of collision
         if (clipCheckHit.collider != null)
         {
             // Add a tiny offset back to prevent starting the raycast inside the wall
             effectiveRaycastOrigin = clipCheckHit.point - (playerToGunDir * 0.01f);
         }
         
-        // --- MODIFICATION END ---
         
         Vector2 direction = raycastOrigin.right;
         int playerLayer = LayerMask.NameToLayer("Player");

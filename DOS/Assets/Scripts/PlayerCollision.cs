@@ -7,10 +7,10 @@ public class PlayerCollision : MonoBehaviour
     public TextMeshProUGUI missionFailedText;
     private bool isFailing = false;
     
-    // --- NEW: Add a reference to the PlayerController ---
+    
     private PlayerController playerController;
 
-    // --- NEW: Get the reference in the Start method ---
+    
     void Start()
     {
         playerController = GetComponent<PlayerController>();
