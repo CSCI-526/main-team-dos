@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7153349732464807346}
   - component: {fileID: 3943991022501410451}
   - component: {fileID: -2955688783513918019}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: OrangePortal
   m_TagString: OrangePortal
   m_Icon: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationPortal: {fileID: 0}
+  exitOffset: 0.1
 --- !u!61 &3943991022501410451
 BoxCollider2D:
   m_ObjectHideFlags: 0

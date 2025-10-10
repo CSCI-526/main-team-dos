@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic; // Added for IEnumerator
+using System.Collections.Generic;
 
 public class Portal : MonoBehaviour
 {
@@ -68,7 +68,7 @@ public class Portal : MonoBehaviour
         // Move object safely
         RigidbodyType2D originalType = rb.bodyType;
         rb.bodyType = RigidbodyType2D.Kinematic;
-        obj.position = newPosition; // This now uses our new centered position
+        obj.position = newPosition; 
         rb.bodyType = originalType;
 
         // Apply new projected velocity
