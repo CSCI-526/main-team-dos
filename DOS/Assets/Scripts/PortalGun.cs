@@ -1,30 +1,38 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PortalGun : MonoBehaviour
 {
+    // ... (All variables and Awake, Update, ShootBeam methods are unchanged) ...
     public Camera mainCamera;
     public GameObject bluePortalPrefab;
     public GameObject orangePortalPrefab;
     public Transform raycastOrigin;
     public float portalHalfWidth = 0.5f;
     public float portalDepth = 0.1f;
-    
-    // NEW: Add a layer mask to identify portal-compatible surfaces.
     public LayerMask portalableSurfaceLayer;
+    
+    [Header("Beam Effect")]
+    public Color blueBeamColor;
+    public Color orangeBeamColor;
+    public float beamDuration = 0.1f;
+    private LineRenderer beamLine;
 
     private GameObject activeBluePortal;
     private GameObject activeOrangePortal;
-
     private AmplitudeAnalytics amplitude;
 
     void Awake()
     {
         amplitude = FindFirstObjectByType<AmplitudeAnalytics>();
-        if (amplitude == null)
-        {
-            amplitude = gameObject.AddComponent<AmplitudeAnalytics>();
-        }
+        if (amplitude == null) { amplitude = gameObject.AddComponent<AmplitudeAnalytics>(); }
+        
+        beamLine = GetComponent<LineRenderer>();
+        if (beamLine != null) { beamLine.enabled = false; }
+
+        ColorUtility.TryParseHtmlString("#0D0D8C", out blueBeamColor);
+        ColorUtility.TryParseHtmlString("#FF6E00", out orangeBeamColor);
     }
 
     void Update()
@@ -34,107 +42,147 @@ public class PortalGun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) { DeleteAllPortals(); }
     }
 
-    void ShootPortal(GameObject portalPrefab, ref GameObject activePortal)
+    private IEnumerator ShootBeam(Vector3 startPoint, Vector3 endPoint, Color color)
     {
-        // --- MODIFICATION START ---
-
-        // Define the player's center (assuming the gun is a child of the player GameObject).
-        Vector2 playerCenter = transform.parent.position;
-        Vector2 gunTipPosition = raycastOrigin.position;
-
-        // Calculate the direction and distance from the player to the gun's tip.
-        Vector2 playerToGunDir = (gunTipPosition - playerCenter).normalized;
-        float playerToGunDist = Vector2.Distance(playerCenter, gunTipPosition);
-
-        // Pre-check raycast to see if the gun is clipping through a wall.
-        RaycastHit2D clipCheckHit = Physics2D.Raycast(playerCenter, playerToGunDir, playerToGunDist, portalableSurfaceLayer);
-
-        // The starting point for our main raycast. Defaults to the gun's tip.
-        Vector2 effectiveRaycastOrigin = raycastOrigin.position;
-
-        // If the pre-check hits something, the gun is clipping.
-        // We update our starting point to be the exact point of collision.
-        if (clipCheckHit.collider != null)
-        {
-            // Add a tiny offset back to prevent starting the raycast inside the wall
-            effectiveRaycastOrigin = clipCheckHit.point - (playerToGunDir * 0.01f);
-        }
-        
-        // --- MODIFICATION END ---
-        
-        Vector2 direction = raycastOrigin.right;
-        int playerLayer = LayerMask.NameToLayer("Player");
-        int layerMaskToIgnorePlayer = ~(1 << playerLayer);
-
-        // Use the new 'effectiveRaycastOrigin' for the main raycast.
-        RaycastHit2D hit = Physics2D.Raycast(effectiveRaycastOrigin, direction, 100f, layerMaskToIgnorePlayer);
-
-        if (hit.collider != null && hit.collider.CompareTag("PortalGround"))
-        {
-            if (IsPlacementValid(hit.point, hit.normal, layerMaskToIgnorePlayer, hit.collider))
-            {
-                if (activePortal != null) Destroy(activePortal);
-                activePortal = Instantiate(portalPrefab, hit.point, Quaternion.identity);
-                activePortal.transform.up = hit.normal;
-                LinkPortals();
-
-                // Analytics
-                var eventProperties = new Dictionary<string, object>
-                {
-                    { "x_position", hit.point.x },
-                    { "y_position", hit.point.y },
-                    { "surface_tag", hit.collider.tag },
-                    { "surface_name", hit.collider.name }
-                };
-
-                if (portalPrefab == bluePortalPrefab)
-                {
-                    amplitude.LogEvent("shot_blue_portal", eventProperties);
-                }
-                else
-                {
-                    amplitude.LogEvent("shot_orange_portal", eventProperties);
-                }
-            }
-        }
+        if (beamLine == null) yield break;
+        beamLine.enabled = true;
+        beamLine.startColor = color;
+        beamLine.endColor = color;
+        beamLine.SetPosition(0, startPoint);
+        beamLine.SetPosition(1, endPoint);
+        yield return new WaitForSeconds(beamDuration);
+        beamLine.enabled = false;
     }
 
 
-    private bool IsPlacementValid(Vector2 point, Vector2 normal, int layerMask, Collider2D targetSurface)
+    void ShootPortal(GameObject portalPrefab, ref GameObject activePortal)
     {
-        // Check if the surface is wide enough (Edge Check)
-        Vector2 portalRight = new Vector2(normal.y, -normal.x);
-        Vector2 rightPos = point + (portalRight * portalHalfWidth);
-        Vector2 leftPos = point - (portalRight * portalHalfWidth);
-        float castOffset = 0.1f;
+        Vector2 playerCenter = transform.parent.position;
+        Vector2 gunTipPosition = raycastOrigin.position;
+        Vector2 playerToGunDir = (gunTipPosition - playerCenter).normalized;
+        float playerToGunDist = Vector2.Distance(playerCenter, gunTipPosition);
+        RaycastHit2D clipCheckHit = Physics2D.Raycast(playerCenter, playerToGunDir, playerToGunDist, portalableSurfaceLayer);
+        Vector2 effectiveRaycastOrigin = raycastOrigin.position;
+        if (clipCheckHit.collider != null) { effectiveRaycastOrigin = clipCheckHit.point - (playerToGunDir * 0.01f); }
+        Vector2 direction = raycastOrigin.right;
+        int playerLayer = LayerMask.NameToLayer("Player");
+        int portalLayer = LayerMask.NameToLayer("Portal");
+        int shootLayerMask = ~((1 << playerLayer) | (1 << portalLayer));
+        int obstructionCheckLayerMask = ~(1 << playerLayer);
+
+        RaycastHit2D hit = Physics2D.Raycast(effectiveRaycastOrigin, direction, 100f, shootLayerMask);
+
+        Vector3 beamStartPoint = raycastOrigin.position;
+        Vector3 beamEndPoint = hit.collider != null ? (Vector3)hit.point : beamStartPoint + (Vector3)direction * 100f;
+        Color beamColor = (portalPrefab == bluePortalPrefab) ? blueBeamColor : orangeBeamColor;
+        StartCoroutine(ShootBeam(beamStartPoint, beamEndPoint, beamColor));
         
+        if (hit.collider != null && hit.collider.CompareTag("PortalGround"))
+        {
+            Collider2D existingPortalCollider = null;
+            if (activePortal != null)
+            {
+                existingPortalCollider = activePortal.GetComponent<Collider2D>();
+                if (existingPortalCollider != null) { existingPortalCollider.enabled = false; }
+            }
+            
+            Vector2 finalPosition;
+            bool isValid = AdjustAndValidatePlacement(hit.point, hit.normal, obstructionCheckLayerMask, hit.collider, out finalPosition);
+            
+            if (existingPortalCollider != null) { existingPortalCollider.enabled = true; }
+
+            if (isValid)
+            {
+                if (activePortal != null) Destroy(activePortal);
+                activePortal = Instantiate(portalPrefab, finalPosition, Quaternion.identity);
+                activePortal.transform.up = hit.normal;
+                LinkPortals();
+            }
+        }
+    }
+    
+    private bool IsPositionOnSurface(Vector2 point, Vector2 normal, int layerMask)
+    {
+        Vector2 portalRightDir = new Vector2(normal.y, -normal.x);
+        float castOffset = 0.1f;
+
+        Vector2 rightPos = point + portalRightDir * portalHalfWidth;
+        Vector2 leftPos = point - portalRightDir * portalHalfWidth;
+
         RaycastHit2D hitLeft = Physics2D.Raycast(leftPos + (normal * castOffset), -normal, castOffset * 2f, layerMask);
         RaycastHit2D hitRight = Physics2D.Raycast(rightPos + (normal * castOffset), -normal, castOffset * 2f, layerMask);
 
-        bool surfaceIsWideEnough = hitLeft.collider != null && hitLeft.collider.CompareTag("PortalGround") &&
-                                   hitRight.collider != null && hitRight.collider.CompareTag("PortalGround");
+        return hitLeft.collider != null && hitRight.collider != null;
+    }
 
-        if (!surfaceIsWideEnough)
+
+    private bool AdjustAndValidatePlacement(Vector2 point, Vector2 normal, int layerMask, Collider2D targetSurface, out Vector2 adjustedPoint)
+    {
+        adjustedPoint = point; 
+        Vector2 portalRightDir = new Vector2(normal.y, -normal.x);
+
+        // Handle hanging off an edge 
+        if (!IsPositionOnSurface(point, normal, layerMask))
         {
-            return false;
+            // Propose a nudged position
+            Vector2 rightPos = point + portalRightDir * portalHalfWidth;
+            Vector2 leftPos = point - portalRightDir * portalHalfWidth;
+            float castOffset = 0.1f;
+            RaycastHit2D hitLeft = Physics2D.Raycast(leftPos + (normal * castOffset), -normal, castOffset * 2f, layerMask);
+            RaycastHit2D hitRight = Physics2D.Raycast(rightPos + (normal * castOffset), -normal, castOffset * 2f, layerMask);
+
+            if (hitLeft.collider == null && hitRight.collider != null) { adjustedPoint = point + portalRightDir * portalHalfWidth; }
+            else if (hitRight.collider == null && hitLeft.collider != null) { adjustedPoint = point - portalRightDir * portalHalfWidth; }
+            else { return false; } // Surface too narrow
+
+            // Re-validate the nudged position
+            if (!IsPositionOnSurface(adjustedPoint, normal, layerMask)) { return false; }
         }
 
-        // Check for obstructions BEHIND the portal's surface
+        // Check for obstructions
         float portalWidth = portalHalfWidth * 2;
-        Vector2 boxCenter = point - (normal * (portalDepth / 2));
+        Vector2 boxCenter = adjustedPoint - (normal * (portalDepth / 2));
         Vector2 boxSize = new Vector2(portalWidth, portalDepth);
         float angle = Vector2.SignedAngle(Vector2.up, normal);
-
-        // Get ALL colliders in the obstruction area.
         Collider2D[] obstructions = Physics2D.OverlapBoxAll(boxCenter, boxSize, angle, layerMask);
 
-        // Check if any of the found colliders are not the target surface itself
         foreach (Collider2D col in obstructions)
         {
             if (col != targetSurface)
             {
-                Debug.Log("Placement failed: Obstruction detected: " + col.name);
-                return false;
+                // Is the obstruction another portalable wall? If so, we're at an inside corner.
+                if (col.CompareTag("PortalGround"))
+                {
+                    // Find the closest point on the obstructing wall to our portal's center.
+                    Vector2 closestPointOnObstacle = col.ClosestPoint(adjustedPoint);
+                    // Determine the direction to push the portal along its surface.
+                    Vector2 pushDirection = (adjustedPoint - closestPointOnObstacle).normalized;
+                    float dot = Vector2.Dot(pushDirection, portalRightDir);
+                    Vector2 finalPushDirection = (dot > 0) ? portalRightDir : -portalRightDir;
+                    
+                    // Propose a new position by nudging it away from the corner.
+                    float overlap = portalHalfWidth - Vector2.Distance(adjustedPoint, closestPointOnObstacle);
+                    Vector2 finalNudgedPoint = adjustedPoint + finalPushDirection * (overlap + 0.01f);
+
+                    // Check if the newly nudged position fully on the surface
+                    if (IsPositionOnSurface(finalNudgedPoint, normal, layerMask))
+                    {
+                        adjustedPoint = finalNudgedPoint;
+                        // Check for other obstructions at the new spot
+                        Collider2D[] finalObstructions = Physics2D.OverlapBoxAll(finalNudgedPoint - (normal * (portalDepth / 2)), boxSize, angle, layerMask);
+                        foreach (var finalCol in finalObstructions) { if (finalCol != targetSurface) return false; }
+                        return true;
+                    }
+                    else
+                    {
+                        return false; // Nudging failed.
+                    }
+                }
+                else
+                {
+                    // Its a non-portalable obstruction
+                    return false;
+                }
             }
         }
         
