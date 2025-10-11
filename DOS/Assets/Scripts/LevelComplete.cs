@@ -8,7 +8,7 @@ public class LevelComplete : MonoBehaviour
 {
     private const string SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoYW9qeG1xcXZwanR6aXJvd2JkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTczODMsImV4cCI6MjA3NTE3MzM4M30.PkARXX-cXJ5PVVOS10EqT6OynHOML_yIMPEg-jh9-Qo";
     private const string LEADERBOARD_URL = "https://dhaojxmqqvpjtzirowbd.supabase.co/rest/v1/leaderboard";
-    private const int CURRENT_LEVEL = 1;
+    [SerializeField] public int CURRENT_LEVEL = 1;
 
     [Header("UI References")]
     [SerializeField] private Timer timer;
