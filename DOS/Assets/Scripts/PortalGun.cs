@@ -97,6 +97,24 @@ public class PortalGun : MonoBehaviour
                 activePortal = Instantiate(portalPrefab, finalPosition, Quaternion.identity);
                 activePortal.transform.up = hit.normal;
                 LinkPortals();
+
+                // Analytics
+                var eventProperties = new Dictionary<string, object>
+                {
+                    { "x_position", hit.point.x },
+                    { "y_position", hit.point.y },
+                    { "surface_tag", hit.collider.tag },
+                    { "surface_name", hit.collider.name }
+                };
+
+                if (portalPrefab == bluePortalPrefab)
+                {
+                    amplitude.LogEvent("shot_blue_portal", eventProperties);
+                }
+                else
+                {
+                    amplitude.LogEvent("shot_orange_portal", eventProperties);
+                }
             }
         }
     }

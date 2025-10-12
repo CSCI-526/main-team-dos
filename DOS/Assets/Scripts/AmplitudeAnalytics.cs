@@ -18,7 +18,6 @@ public class AmplitudeAnalytics : MonoBehaviour
     {
         var eventObj = new Dictionary<string, object>
         {
-            { "user_id", SystemInfo.deviceUniqueIdentifier },
             { "event_type", eventName },
             { "event_properties", properties ?? new Dictionary<string, object>() }
         };
