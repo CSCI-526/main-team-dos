@@ -114,7 +114,8 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator LoginUser(string username, string password)
     {
-        ShowFeedback("Logging in...");
+        print("Logging in..." + username + ", " + password);
+        ShowFeedback("Logging in..." + username + ", " + password);
 
         string queryURL = $"{SUPABASE_URL}?username=eq.{UnityWebRequest.EscapeURL(username)}&password=eq.{UnityWebRequest.EscapeURL(password)}";
         using UnityWebRequest www = UnityWebRequest.Get(queryURL);

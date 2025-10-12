@@ -10,6 +10,36 @@ public class StarterMenu : MonoBehaviour
         SceneManager.LoadScene("Level_1");  // Ensure your Level_1 scene name matches exactly
     }
 
+    public void LoadLevel1()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_1");
+    }
+
+    public void LoadLevel2()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_2");
+    }
+
+    public void LoadLevel3()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_3");
+    }
+
+    public void LoadLevelSelector()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_Select");
+    }
+
+    public void LoadLeaderboard()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Leaderboard");
+    }
+
     // Loads Tutorial 1
     public void LoadTutorial1()
     {
@@ -28,7 +58,13 @@ public class StarterMenu : MonoBehaviour
     public void LoadStarterPage()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("StarterPage");
+        SceneManager.LoadScene("Starter");
+    }
+
+    public void LoadControls()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Controls");
     }
 
     // Generic Quit
