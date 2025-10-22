@@ -18,12 +18,20 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // --- MODIFIED: Added a check for player invincibility ---
-        if (!isFailing && collision.collider.CompareTag("Enemy") && (playerController == null || !playerController.IsInvincible))
+        // Check if the collided object has EITHER the "Enemy" tag OR the "Hazard" tag.
+        bool isHazardous = collision.collider.CompareTag("Enemy") || collision.collider.CompareTag("Hazard");
+
+        if (!isFailing && isHazardous)
         {
             isFailing = true;
+
+            // Show Mission Failed
             missionFailedText.text = "MISSION FAILED";
+
+            // Freeze everything in the scene
             Time.timeScale = 0f;
+
+            // Restart after short delay 
             StartCoroutine(RestartScene());
         }
     }
