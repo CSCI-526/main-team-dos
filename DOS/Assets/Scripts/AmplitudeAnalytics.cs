@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -32,12 +33,19 @@ public class AmplitudeAnalytics : MonoBehaviour
     private IEnumerator SendEvent(string eventName, Dictionary<string, object> properties)
     {
         string deviceId = GetOrCreateDeviceId();
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (properties == null)
+        {
+            properties = new Dictionary<string, object>();
+        }
+        properties["game_level"] = currentScene;
+
         var eventObj = new Dictionary<string, object>
         {
             { "user_id", "webuser" },
             { "device_id", deviceId },
             { "event_type", eventName },
-            { "event_properties", properties ?? new Dictionary<string, object>() }
+            { "event_properties", properties },
         };
 
         var payload = new Dictionary<string, object>
