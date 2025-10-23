@@ -193,6 +193,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9215117233342268381, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
   m_PrefabInstance: {fileID: 10018582}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &17306764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 17306766}
+  - component: {fileID: 17306765}
+  m_Layer: 0
+  m_Name: DotPlotter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &17306765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17306764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18fdf2e5531c4514ba45aeca4118ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csvFileName: portals
+  gameLevel: Level_1
+  bluePortalDotPrefab: {fileID: 8287932889331477185, guid: 8181bf976733e4a6287a504024c5055f, type: 3}
+  orangePortalDotPrefab: {fileID: 8287932889331477185, guid: 6454fbf8972d043888dde2c58f7a1bd7, type: 3}
+--- !u!4 &17306766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17306764}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4459758, y: 45.912598, z: 10.223849}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &67557533
 GameObject:
   m_ObjectHideFlags: 0
@@ -3238,3 +3286,4 @@ SceneRoots:
   - {fileID: 1666637037}
   - {fileID: 456453025}
   - {fileID: 130262818}
+  - {fileID: 17306766}
