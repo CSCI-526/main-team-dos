@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneReloader : MonoBehaviour
 {
     [Tooltip("Key used to restart the current scene.")]
-    public KeyCode restartKey = KeyCode.R;
+    public KeyCode restartKey = KeyCode.L;
 
     void Update()
     {
