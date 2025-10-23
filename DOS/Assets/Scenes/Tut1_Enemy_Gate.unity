@@ -1808,18 +1808,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.9798935}
   m_EdgeRadius: 0
---- !u!114 &876304872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876304867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d42af2f4c680d4f30abbd65b8b6206a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &966937146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2034,11 +2022,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 684958825934841849, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.5975604
+      value: -7.95
       objectReference: {fileID: 0}
     - target: {fileID: 684958825934841849, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 46.168808
+      value: 46.68
       objectReference: {fileID: 0}
     - target: {fileID: 684958825934841849, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2076,6 +2064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4342759139285066309, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
+      propertyPath: missionFailedText
+      value: 
+      objectReference: {fileID: 446286887}
     - target: {fileID: 6048774056405761775, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: player
       value: 
@@ -2321,6 +2313,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7185754288577095572, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 7c45aa2be3b3647a0aa0914aa1479c1c, type: 2}
     - target: {fileID: 8242302327566490612, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -3092,9 +3088,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5663242675019639151, guid: d3f867f8994a74ae59c592d31e204f14, type: 3}
       insertIndex: -1
       addedObject: {fileID: 876304871}
-    - targetCorrespondingSourceObject: {fileID: 5663242675019639151, guid: d3f867f8994a74ae59c592d31e204f14, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 876304872}
   m_SourcePrefab: {fileID: 100100000, guid: d3f867f8994a74ae59c592d31e204f14, type: 3}
 --- !u!1001 &4099243221005364001
 PrefabInstance:
