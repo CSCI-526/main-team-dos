@@ -1124,7 +1124,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Movement: A, W, D / \u2190,\u2191,\u2192\nPortals: Left Click | Right
-    Click\nClear Portals: \u201CR\u201D\nClear Obstacles: \"O\"\nRestart Level: \"L\"\nExit
+    Click\nClear Portals: \u201CR\u201D\nReset Obstacles: \"O\"\nRestart Level: \"L\"\nExit
     Level: ESC (Double in Full Screen Mode)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
