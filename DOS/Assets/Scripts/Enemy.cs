@@ -38,29 +38,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // --- MODIFICATION START ---
-    // Swapped from OnTriggerEnter2D to OnTriggerStay2D
     private void OnTriggerStay2D(Collider2D other)
     {
-        // Only react to other enemies, and only if the cooldown has passed
         if (other.CompareTag("Enemy") && Time.time - lastFlipTime >= flipCooldown)
         {
-            // Determine the direction of the other enemy
-            // Is the other enemy to my right?
             if (other.transform.position.x > transform.position.x)
             {
-                // If the other enemy is on my right, I must move left.
-                // If I am currently moving right, then I need to flip.
                 if (movingRight)
                 {
                     Flip();
                 }
             }
-            // Is the other enemy to my left?
             else
             {
-                // If the other enemy is on my left, I must move right.
-                // If I am currently moving left, then I need to flip.
                 if (!movingRight)
                 {
                     Flip();
@@ -68,8 +58,7 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    // --- MODIFICATION END ---
-
+    
     private bool IsHittingWall()
     {
         Vector2 direction = movingRight ? Vector2.right : Vector2.left;

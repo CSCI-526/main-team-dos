@@ -258,8 +258,10 @@ MonoBehaviour:
 
     Tip: You can only shoot on brown surfaces
 
-    Goal: Reach the
-    exit, try jumping from high up!
+    You can Restart
+    the Level by pressing "L"
+
+    Goal: Reach the exit, try jumping from high up!
 
 '
   m_isRightToLeft: 0
