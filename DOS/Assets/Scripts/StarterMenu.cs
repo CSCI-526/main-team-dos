@@ -44,14 +44,14 @@ public class StarterMenu : MonoBehaviour
     public void LoadTutorial1()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Tut1_PortalsBasic");
+        SceneManager.LoadScene("Tutorial_1");
     }
 
     // Loads Tutorial 2
     public void LoadTutorial2()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Tut1_Enemy_Gate");
+        SceneManager.LoadScene("Tutorial_2");
     }
 
     // Loads Starter Page
