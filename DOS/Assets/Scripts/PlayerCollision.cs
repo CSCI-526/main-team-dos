@@ -18,20 +18,21 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the collided object has EITHER the "Enemy" tag OR the "Hazard" tag.
         bool isHazardous = collision.collider.CompareTag("Enemy") || collision.collider.CompareTag("Hazard");
 
-        if (!isFailing && isHazardous)
+        bool isInvincible = playerController != null && playerController.IsInvincible;
+
+        if (!isFailing && isHazardous && !isInvincible)
         {
             isFailing = true;
 
-            // Show Mission Failed
+            // Show the "MISSION FAILED" text
             missionFailedText.text = "MISSION FAILED";
 
-            // Freeze everything in the scene
+            // Freeze the game
             Time.timeScale = 0f;
 
-            // Restart after short delay 
+            // Start the coroutine to restart the scene
             StartCoroutine(RestartScene());
         }
     }
