@@ -1,13 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using System;
+
 
 public class GateTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject gate;
 
     private int objectsInside = 0;
-    
+
     private AmplitudeAnalytics amplitude;
+    
+    public static event Action GateTriggered;
 
     void Awake()
     {
@@ -40,6 +45,7 @@ public class GateTrigger : MonoBehaviour
                     { "object_type", other.tag } // Check what Object triggered the Gate
                 };
                 amplitude.LogEvent("gate_trigger", eventProperties);
+                GateTriggered?.Invoke();
 
             }
             else
