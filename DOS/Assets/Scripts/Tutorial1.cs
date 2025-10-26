@@ -10,8 +10,8 @@ public class Tutorial1 : MonoBehaviour
         "Press 'D/→' To Go Right",
         "Press 'A/←' To Go Left",
         "Press 'W/↑' To Jump",
-        "Shoot Blue Portal Using Left Click",
-        "Shoot Orange Portal Using Right Click",
+        "Shoot Blue Portal Using Left Click\nYou can only Shoot Portals on the Brown Surfaces",
+        "Shoot Orange Portal Using Right Click\nYou can only Shoot Portals on the Brown Surfaces",
         "Jump Into The Portals",
     };
 
