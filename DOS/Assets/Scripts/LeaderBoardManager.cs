@@ -32,6 +32,14 @@ public class LeaderBoardManager : MonoBehaviour
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI playerTimeText;
 
+    [Header("Search Input")]
+    public TMP_InputField searchInput;
+    [Header("Friend Info Display")]
+    public TextMeshProUGUI friendRankText;
+    public TextMeshProUGUI friendNameText;
+    public TextMeshProUGUI friendTimeText;
+
+
     private int currentLevel = 0;
     private int currentPage = 0;
     private int entriesPerPage = 5;
@@ -45,10 +53,49 @@ public class LeaderBoardManager : MonoBehaviour
             Debug.LogError("Level Dropdown reference is missing.");
             return;
         }
+        if (searchInput != null)
+        {
+            searchInput.onSubmit.AddListener(OnSearchSubmitted);
+        }
+
 
         levelDropDown.onValueChanged.AddListener(_ => OnLevelDropDownChanged());
-        _ = LoadLeaderboardAsync(); 
+        _ = LoadLeaderboardAsync();
     }
+    
+    private void OnSearchSubmitted(string username)
+    {
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            Debug.Log("Search input empty.");
+            return;
+        }
+
+        // Find friend in current leaderboard
+        var entry = allEntries.Find(e => e.username.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+        if (entry != null)
+        {
+            Debug.Log($"Found {username}: time = {entry.time}");
+
+            friendRankText.text = "#" + (allEntries.IndexOf(entry) + 1);
+            friendNameText.text = entry.username;
+            friendTimeText.text = FormatTime(entry.time);
+        }
+        else
+        {
+            Debug.Log($"{username} not found in current leaderboard.");
+            friendRankText.text = "#--";
+            friendNameText.text = username;
+            friendTimeText.text = "--:--.--";
+        }
+
+        // Optional: clear input
+        searchInput.text = "";
+        searchInput.DeactivateInputField();
+    }
+
+
 
     private void OnLevelDropDownChanged()
     {
