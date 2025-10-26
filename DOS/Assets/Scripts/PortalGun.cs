@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+
 
 public class PortalGun : MonoBehaviour
 {
@@ -22,6 +24,10 @@ public class PortalGun : MonoBehaviour
     private GameObject activeBluePortal;
     private GameObject activeOrangePortal;
     private AmplitudeAnalytics amplitude;
+
+    public static event Action OnBluePortalCreated;
+    public static event Action OnOrangePortalCreated;
+
 
     void Awake()
     {
@@ -110,10 +116,12 @@ public class PortalGun : MonoBehaviour
                 if (portalPrefab == bluePortalPrefab)
                 {
                     amplitude.LogEvent("shot_blue_portal", eventProperties);
+                    OnBluePortalCreated?.Invoke();
                 }
                 else
                 {
                     amplitude.LogEvent("shot_orange_portal", eventProperties);
+                    OnOrangePortalCreated?.Invoke();
                 }
             }
         }

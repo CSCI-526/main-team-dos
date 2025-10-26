@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+
 
 public class Portal : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class Portal : MonoBehaviour
     private bool isTeleporting = false;
 
     private AmplitudeAnalytics amplitude;
+
+    public static event Action OnPlayerTeleport;
+    public static event Action OnEnemyTeleport;
 
     void Awake()
     {
@@ -76,7 +81,7 @@ public class Portal : MonoBehaviour
 
         if (obj.CompareTag("Player"))
         {
-            obj.GetComponent<PlayerController>().OnTeleport(); 
+            obj.GetComponent<PlayerController>().OnTeleport();
         }
 
         // Teleport Event
@@ -86,6 +91,14 @@ public class Portal : MonoBehaviour
             {
                 { "object_type", obj.tag } // Check what Object was teleported
             };
+            if (obj.tag == "Player")
+            {
+                OnPlayerTeleport?.Invoke();
+            }
+            else if (obj.tag == "Enemy")
+            {
+                OnEnemyTeleport?.Invoke();
+            }
             amplitude.LogEvent("teleport", eventProperties);
         }
 
