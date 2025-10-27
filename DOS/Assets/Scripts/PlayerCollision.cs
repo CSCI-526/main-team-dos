@@ -5,6 +5,8 @@ using TMPro;
 public class PlayerCollision : MonoBehaviour
 {
     public TextMeshProUGUI missionFailedText;
+    [SerializeField] private GameObject missionFailedPanel;
+
     private bool isFailing = false;
     
     
@@ -28,12 +30,13 @@ public class PlayerCollision : MonoBehaviour
 
             // Show the "MISSION FAILED" text
             missionFailedText.text = "MISSION FAILED";
+            missionFailedPanel.SetActive(true);
+
 
             // Freeze the game
             Time.timeScale = 0f;
 
-            // Start the coroutine to restart the scene
-            StartCoroutine(RestartScene());
+        
         }
     }
     public void LaserHit()
@@ -50,10 +53,5 @@ public class PlayerCollision : MonoBehaviour
     }
 
 
-    private System.Collections.IEnumerator RestartScene()
-    {
-        yield return new WaitForSecondsRealtime(2f);
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Starter");
-    }
+    
 }

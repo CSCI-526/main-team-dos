@@ -8,6 +8,8 @@ public class LevelComplete : MonoBehaviour
 {
     private const string SUPABASE_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoYW9qeG1xcXZwanR6aXJvd2JkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTczODMsImV4cCI6MjA3NTE3MzM4M30.PkARXX-cXJ5PVVOS10EqT6OynHOML_yIMPEg-jh9-Qo";
     private const string LEADERBOARD_URL = "https://dhaojxmqqvpjtzirowbd.supabase.co/rest/v1/leaderboard";
+    private const string ATTEMPTS_URL = "https://dhaojxmqqvpjtzirowbd.supabase.co/rest/v1/level_attempts";
+
     public int CURRENT_LEVEL = 1;
 
     [Header("UI References")]
@@ -39,7 +41,7 @@ public class LevelComplete : MonoBehaviour
 
     private void RecordNewTime(float newTime)
     {
-        string username = PlayerPrefs.GetString("CurrentUsername", "");
+        string username = PlayerPrefs.GetString("CurrentUsername", "wyatt");
         if (string.IsNullOrEmpty(username))
         {
             Debug.LogError("Cannot record time: Username is missing. Please log in first.");
@@ -81,6 +83,7 @@ public class LevelComplete : MonoBehaviour
                     StartCoroutine(PutNewTime(username, newTime));
                 }
             }
+            StartCoroutine(LogLevelAttempt(username, newTime));
         }
     }
 
@@ -145,4 +148,28 @@ public class LevelComplete : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator LogLevelAttempt(string username, float newTime)
+    {
+        LeaderboardEntry attemptEntry = new LeaderboardEntry { username = username, level = CURRENT_LEVEL, time = newTime };
+        string jsonPayload = JsonUtility.ToJson(attemptEntry);
+
+        using (UnityWebRequest request = new UnityWebRequest(ATTEMPTS_URL, "POST"))
+        {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonPayload);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("apikey", SUPABASE_API_KEY);
+            request.SetRequestHeader("Prefer", "return=minimal");
+
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"Attempt Log Failed: {request.error}");
+            }
+        }
+    }
+
 }
