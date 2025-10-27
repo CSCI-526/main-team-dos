@@ -36,6 +36,19 @@ public class PlayerCollision : MonoBehaviour
             StartCoroutine(RestartScene());
         }
     }
+    public void LaserHit()
+    {
+        bool isInvincible = playerController != null && playerController.IsInvincible;
+
+        if (!isFailing && !isInvincible)
+        {
+            isFailing = true;
+            missionFailedText.text = "MISSION FAILED";
+            Time.timeScale = 0f;
+            StartCoroutine(RestartScene());
+        }
+    }
+
 
     private System.Collections.IEnumerator RestartScene()
     {
