@@ -1298,7 +1298,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 684958825934841849, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.26
+      value: -8.82
       objectReference: {fileID: 0}
     - target: {fileID: 684958825934841849, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2136,7 +2136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c067badfe4c49a3a020da51d94db4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CURRENT_LEVEL: 1
+  CURRENT_LEVEL: 6
   timer: {fileID: 115012232}
   missionCompletePanel: {fileID: 4099243221005364002}
   missionCompleteText: {fileID: 4099243221005364003}
