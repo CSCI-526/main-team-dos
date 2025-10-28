@@ -32,13 +32,22 @@ public class PlayerCollision : MonoBehaviour
             missionFailedText.text = "MISSION FAILED";
             missionFailedPanel.SetActive(true);
 
-
             // Freeze the game
             Time.timeScale = 0f;
-
-        
         }
     }
 
-    
+    // Called by LaserGun when laser hits player
+    public void LaserHit()
+    {
+        bool isInvincible = playerController != null && playerController.IsInvincible;
+
+        if (!isFailing && !isInvincible)
+        {
+            isFailing = true;
+            missionFailedText.text = "MISSION FAILED";
+            missionFailedPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
 }
