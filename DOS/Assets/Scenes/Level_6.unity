@@ -2667,6 +2667,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4267432730575093149, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267432730575093149, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.94680595
+      objectReference: {fileID: 0}
     - target: {fileID: 8242302327566490612, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
       propertyPath: m_Name
       value: LaserGunEnemy
@@ -2710,6 +2718,26 @@ PrefabInstance:
     - target: {fileID: 8520137095072593534, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775183133054555324, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
+      propertyPath: laserColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775183133054555324, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
+      propertyPath: laserColor.r
+      value: 0.94509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775183133054555324, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
+      propertyPath: warningColor.a
+      value: 0.30588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775183133054555324, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
+      propertyPath: warningColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775183133054555324, guid: b7ea770b3f955473087ed5eb64414d7f, type: 3}
+      propertyPath: warningColor.r
+      value: 0.94509804
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

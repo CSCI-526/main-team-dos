@@ -881,6 +881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missionFailedText: {fileID: 0}
+  missionFailedPanel: {fileID: 0}
 --- !u!1 &3435020200300368746
 GameObject:
   m_ObjectHideFlags: 0
