@@ -46,6 +46,30 @@ public class StarterMenu : MonoBehaviour
         SceneManager.LoadScene("Level_6");
     }
 
+    public void LoadLevel7()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_7");
+    }
+
+    public void LoadLevel8()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_8");
+    }
+
+    public void LoadLevel9()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_9");
+    }
+
+    public void LoadLevel10()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_10");
+    }
+
     public void LoadLevelSelector()
     {
         Time.timeScale = 1f;
