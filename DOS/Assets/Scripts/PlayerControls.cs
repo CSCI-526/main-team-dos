@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private Transform portalGunTransform;
 
+    public GameObject controlsHUD;
+
     // Public property to check invincibility state ---
     public bool IsInvincible { get; private set; } = false;
 
@@ -72,6 +74,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            bool isActive = controlsHUD.activeSelf;
+            controlsHUD.SetActive(!isActive);
+        }
+
         if (_controlsOverriddenByPortal)
         {
             if (portalGraceFrames > 0)
