@@ -17,6 +17,7 @@ public class GunRotation : MonoBehaviour
     {
         if (!player) return;
 
+
         bool facingRight = player.IsFacingRight();
         Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
@@ -28,16 +29,17 @@ public class GunRotation : MonoBehaviour
         // Facing Right: 270->0->90
         // Facing Left: 90->180->270
 
-        if (facingRight)
-        {
-            angle = Mathf.Clamp(angle, -90f, 90f);
-        }
-        else
-        {
-            if (angle < 0) angle += 360f;
-            if (angle < 90f) angle = 90f;
-            if (angle > 270f) angle = 270f;
-        }
+        // Uncomment below code for Clipped AIM.
+        // if (facingRight)
+        // {
+        //     angle = Mathf.Clamp(angle, -90f, 90f);
+        // }
+        // else
+        // {
+        //     if (angle < 0) angle += 360f;
+        //     if (angle < 90f) angle = 90f;
+        //     if (angle > 270f) angle = 270f;
+        // }
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
