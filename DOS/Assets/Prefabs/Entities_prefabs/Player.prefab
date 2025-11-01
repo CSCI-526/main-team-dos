@@ -841,6 +841,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2240
+  controlsHUD: {fileID: 0}
 --- !u!50 &27749463863058565
 Rigidbody2D:
   serializedVersion: 5
@@ -1344,8 +1345,8 @@ Transform:
   m_GameObject: {fileID: 5223699858367058003}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.427, y: -1.057, z: -0.004348755}
-  m_LocalScale: {x: 0.049333062, y: 1.1016799, z: 1}
+  m_LocalPosition: {x: -0.457, y: -1.19, z: -0.004348755}
+  m_LocalScale: {x: 0.08669586, y: 1.3774304, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 415574111973441833}
