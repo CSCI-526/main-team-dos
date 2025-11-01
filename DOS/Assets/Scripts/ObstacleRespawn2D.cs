@@ -4,11 +4,11 @@ using UnityEngine;
 public class ObstacleRespawn2D : MonoBehaviour
 {
     public KeyCode respawnKey = KeyCode.O;   // press O to reset
-
-    Vector3 startPos;
-    Quaternion startRot;
-    Vector3 startScale;
-    Rigidbody2D rb;
+    public float maxSpeed = 15f;
+    private Vector3 startPos;
+    private Quaternion startRot;
+    private Vector3 startScale;
+    private Rigidbody2D rb;
 
     void Start()
     {
@@ -22,6 +22,14 @@ public class ObstacleRespawn2D : MonoBehaviour
     {
         if (Input.GetKeyDown(respawnKey))
             Respawn();
+    }
+
+    void FixedUpdate()
+    {
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        }
     }
 
     public void Respawn()
