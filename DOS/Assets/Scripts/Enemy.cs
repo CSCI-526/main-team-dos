@@ -6,6 +6,10 @@ public class Enemy : MonoBehaviour
     [Tooltip("Set this to your Ground/Platforms layer.")]
     public LayerMask groundLayer;
 
+    [Header("Physics")]
+    public float maxSpeed = 15f; 
+
+
     [Header("Collision Checks")]
     public Transform wallCheck;
     public float wallCheckDistance = 0.2f;
@@ -36,6 +40,13 @@ public class Enemy : MonoBehaviour
         {
             Flip();
         }
+
+        
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        }
+        
     }
 
     private void OnTriggerStay2D(Collider2D other)
