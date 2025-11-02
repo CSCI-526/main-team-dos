@@ -5,7 +5,15 @@ public class PlayerController : MonoBehaviour
 {
     public float maxFallSpeed = 15f;
     public float speed = 5f;
-    public float jumpForce = 5f;
+
+    [Header("Jump Physics")]
+    [Tooltip("The initial velocity applied when jumping.")]
+    public float jumpForce = 5f; 
+    
+    [Tooltip("Multiplier for gravity when falling.")]
+    public float fallMultiplier = 2.5f; 
+    [Tooltip("Multiplier for gravity when jump is released early.")]
+    public float lowJumpMultiplier = 2f; 
     
     // Public variable for invincibility duration
     public float postTeleportInvincibility = 0.2f;
@@ -14,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
+    // --- DECLARED HERE ---
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool _controlsOverriddenByPortal = false;
@@ -22,19 +31,25 @@ public class PlayerController : MonoBehaviour
     private Transform portalGunTransform;
 
     public GameObject controlsHUD;
+    
+    private bool wJumpPressedLastFrame = false; 
 
-    // Public property to check invincibility state ---
     public bool IsInvincible { get; private set; } = false;
+
+    // --- MOVED TO AWAKE() ---
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
+    }
 
     public void OnTeleport()
     {
         _controlsOverriddenByPortal = true;
         portalGraceFrames = 2;
-        // Start the invincibility coroutine ---
         StartCoroutine(InvincibilityCoroutine());
     }
 
-    // Coroutine to manage invincibility frames ---
     private IEnumerator InvincibilityCoroutine()
     {
         IsInvincible = true;
@@ -44,8 +59,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true;
+        // Start is still fine for things that don't rely on physics components
         portalGunTransform = GetComponentInChildren<PortalGun>()?.transform;
     }
 
@@ -66,6 +80,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // --- Better Jump Physics ---
+        bool wJumpHeld = Input.GetAxisRaw("Vertical") > 0.5f; 
+        if (rb.linearVelocity.y < 0)
+        {
+            // Player is falling
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
+        else if (rb.linearVelocity.y > 0 && !(Input.GetButton("Jump") || wJumpHeld))
+        {
+            // Player is rising, but jump button is released
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+        }
+        // ---
+        
         if (rb.linearVelocity.y < -maxFallSpeed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
@@ -82,10 +110,7 @@ public class PlayerController : MonoBehaviour
 
         if (_controlsOverriddenByPortal)
         {
-            if (portalGraceFrames > 0)
-            {
-                return;
-            }
+            if (portalGraceFrames > 0) { return; }
             
             bool playerIsTryingToMove = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f || Input.GetButtonDown("Jump");
             if (playerIsTryingToMove)
@@ -96,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
         if (_controlsOverriddenByPortal) return;
 
+        // Horizontal Movement
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
 
@@ -108,8 +134,15 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        if ((Input.GetButtonDown("Jump") || Input.GetAxisRaw("Vertical") > 0.5f) && isGrounded)
+        // --- Jump Input Logic ---
+        
+        bool wJumpHeld = Input.GetAxisRaw("Vertical") > 0.5f;
+        bool wJumpPressed = wJumpHeld && !wJumpPressedLastFrame;
+        wJumpPressedLastFrame = wJumpHeld; 
+
+        if ((Input.GetButtonDown("Jump") || wJumpPressed) && isGrounded)
         {
+            // Set velocity directly for consistent height
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
     }
