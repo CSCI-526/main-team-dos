@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public float maxFallSpeed = 17f;
     public float speed = 5f;
+    private Coroutine activeInvincibilityCoroutine = null;
 
     [Header("Jump Physics")]
     [Tooltip("The initial velocity applied when jumping.")]
@@ -43,9 +44,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnTeleport()
     {
+        
         _controlsOverriddenByPortal = true;
         portalGraceFrames = 2;
-        StartCoroutine(InvincibilityCoroutine());
+        
+        if (activeInvincibilityCoroutine != null)
+        {
+            StopCoroutine(activeInvincibilityCoroutine);
+        }
+        
+        activeInvincibilityCoroutine = StartCoroutine(InvincibilityCoroutine());
     }
 
     private IEnumerator InvincibilityCoroutine()
@@ -53,6 +61,7 @@ public class PlayerController : MonoBehaviour
         IsInvincible = true;
         yield return new WaitForSeconds(postTeleportInvincibility);
         IsInvincible = false;
+        activeInvincibilityCoroutine = null;
     }
 
     void Start()
