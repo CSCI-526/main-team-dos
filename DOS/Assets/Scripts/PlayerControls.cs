@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    public float maxFallSpeed = 15f;
+    public float maxFallSpeed = 17f;
     public float speed = 5f;
 
     [Header("Jump Physics")]
@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
-    // --- DECLARED HERE ---
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool _controlsOverriddenByPortal = false;
@@ -36,7 +35,6 @@ public class PlayerController : MonoBehaviour
 
     public bool IsInvincible { get; private set; } = false;
 
-    // --- MOVED TO AWAKE() ---
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -59,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // Start is still fine for things that don't rely on physics components
         portalGunTransform = GetComponentInChildren<PortalGun>()?.transform;
     }
 
@@ -80,7 +77,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // --- Better Jump Physics ---
+        // Jump Physics 
         bool wJumpHeld = Input.GetAxisRaw("Vertical") > 0.5f; 
         if (rb.linearVelocity.y < 0)
         {
@@ -92,7 +89,7 @@ public class PlayerController : MonoBehaviour
             // Player is rising, but jump button is released
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
-        // ---
+        
         
         if (rb.linearVelocity.y < -maxFallSpeed)
         {
@@ -134,7 +131,7 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        // --- Jump Input Logic ---
+        // Jump Input Logic 
         
         bool wJumpHeld = Input.GetAxisRaw("Vertical") > 0.5f;
         bool wJumpPressed = wJumpHeld && !wJumpPressedLastFrame;

@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Physics")]
-    public float maxSpeed = 15f; 
+    public float maxSpeed = 17f; 
+    public float fallMultiplier = 2.5f;
 
 
     [Header("Collision Checks")]
@@ -17,11 +18,17 @@ public class Enemy : MonoBehaviour
     public float groundCheckDistance = 0.5f;
 
     [Header("Flip Logic")]
-    public float flipCooldown = 0.1f; // A small cooldown is still good
+    public float flipCooldown = 0.1f; 
 
     private Rigidbody2D rb;
     private bool movingRight = true;
     private float lastFlipTime = -1f;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
+    }
 
     void Start()
     {
@@ -41,7 +48,11 @@ public class Enemy : MonoBehaviour
             Flip();
         }
 
-        
+        if (rb.linearVelocity.y < 0)
+        {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
+
         if (rb.linearVelocity.magnitude > maxSpeed)
         {
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
