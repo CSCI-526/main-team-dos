@@ -3087,6 +3087,10 @@ PrefabInstance:
       propertyPath: controlsHUD
       value: 
       objectReference: {fileID: 1002812021}
+    - target: {fileID: 218115305404996017, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
+      propertyPath: maxFallSpeed
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 684958825934841849, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5975604

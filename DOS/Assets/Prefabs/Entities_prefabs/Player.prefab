@@ -832,9 +832,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad8416911d044009a3b95241ec410ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFallSpeed: 15
+  maxFallSpeed: 17
   speed: 5
   jumpForce: 7
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
   postTeleportInvincibility: 0.2
   groundCheck: {fileID: 608053982633919003}
   groundCheckRadius: 0.2

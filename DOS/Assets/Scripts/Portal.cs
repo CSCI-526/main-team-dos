@@ -137,14 +137,11 @@ public class Portal : MonoBehaviour
         anchoredLocalRotation = Quaternion.Inverse(anchorTransform.rotation) * worldRotation;
         anchored = true;
 
-        // Optional: put the portal under the anchor in the hierarchy for tidiness
-        // but still rely on our local transform math to avoid transform-stacking issues.
+        
         transform.SetParent(anchorTransform, worldPositionStays: true);
     }
 
-    /// <summary>
-    /// Detach the portal from any anchor and leave it at its current world transform.
-    /// </summary>
+
     public void DetachAnchor()
     {
         anchored = false;
@@ -152,8 +149,6 @@ public class Portal : MonoBehaviour
         transform.SetParent(null, worldPositionStays: true);
     }
 
-    /// <summary>
-    /// Utility: check whether this portal is currently anchored.
-    /// </summary>
+    
     public bool IsAnchored() => anchored && anchorTransform != null;
 }
