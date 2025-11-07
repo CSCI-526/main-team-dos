@@ -92,15 +92,13 @@ public class LaserGunEnemy : MonoBehaviour
 
         lastFlipTime = Time.time;
         movingRight = !movingRight;
+        
+        // Flip the enemy sprite
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         
-        // Flip the gun's Y scale so it always points in the movement direction
-        if (laserGun != null)
-        {
-            Vector3 gunScale = laserGun.transform.localScale;
-            gunScale.y *= -1;
-            laserGun.transform.localScale = gunScale;
-        }
+        // REMOVED: Gun Y-scale flipping logic
+        // The gun should maintain its orientation regardless of enemy flipping
+        // The LaserGun script now handles direction through the shootOnlyRight parameter
     }
 
     void OnDrawGizmos()
