@@ -18,6 +18,7 @@ TagManager:
   - Instruction
   - ExitDoor
   - HUD
+  - LaserEnemy
   layers:
   - Default
   - TransparentFX

@@ -4,12 +4,15 @@ using System.Collections;
 public class LaserGun : MonoBehaviour
 {
     [Header("Laser Settings")]
-    public float minAngle = -45f; // Minimum rotation angle
-    public float maxAngle = 45f;  // Maximum rotation angle
+    public float minAngle = -30f; // Minimum rotation angle
+    public float maxAngle = 30f;  // Maximum rotation angle
     public float laserRange = 50f; 
     
+    [Header("Direction Settings")]
+    public bool shootOnlyRight = true; // Set to true for enemies that should only shoot right
+    
     [Header("Timing")]
-    public float warningDuration = 2.0f; 
+    public float warningDuration = 3.0f; // INCREASED from 1.5f to 3.0f for better reaction time
     public float shootDuration = 0.3f;   
     public float cooldownDuration = 2f; 
     
@@ -36,6 +39,7 @@ public class LaserGun : MonoBehaviour
         warningLine = warningObj.AddComponent<LineRenderer>();
         SetupLineRenderer(warningLine, warningColor, warningWidth);
         warningLine.enabled = false;
+        warningLine.useWorldSpace = true; // Use world space to prevent positioning issues
         
         GameObject laserObj = new GameObject("LaserLine");
         laserObj.transform.SetParent(transform);
@@ -43,6 +47,7 @@ public class LaserGun : MonoBehaviour
         laserLine = laserObj.AddComponent<LineRenderer>();
         SetupLineRenderer(laserLine, laserColor, laserWidth);
         laserLine.enabled = false;
+        laserLine.useWorldSpace = true; // Use world space to prevent positioning issues
         
         StartCoroutine(ShootingCycle());
     }
@@ -57,6 +62,8 @@ public class LaserGun : MonoBehaviour
         line.endColor = color;
         line.sortingLayerName = "Default";
         line.sortingOrder = 10;
+        line.useWorldSpace = true; // Ensure world space
+        line.alignment = LineAlignment.TransformZ; // Use transform-based alignment
     }
 
     IEnumerator ShootingCycle()
@@ -66,15 +73,31 @@ public class LaserGun : MonoBehaviour
             // Wait for cooldown
             yield return new WaitForSeconds(cooldownDuration);
             
-            // Pick a random angle
-            float targetAngle = Random.Range(minAngle, maxAngle);
+            // Pick a random angle with proper constraints
+            float targetAngle = GetRandomAngleInDirection();
             transform.rotation = Quaternion.Euler(0, 0, targetAngle);
             
-            
+            // Show warning
             yield return StartCoroutine(ShowWarning());
             
-            
+            // Fire laser
             yield return StartCoroutine(FireLaser());
+        }
+    }
+
+    float GetRandomAngleInDirection()
+    {
+        if (shootOnlyRight)
+        {
+            // For shooting right, constrain angles between minAngle and maxAngle
+            // This keeps the gun pointing generally to the right
+            return Random.Range(minAngle, maxAngle);
+        }
+        else
+        {
+            // For shooting left, add 180 degrees to flip direction
+            float angle = Random.Range(minAngle, maxAngle);
+            return angle + 180f;
         }
     }
 
@@ -114,7 +137,18 @@ public class LaserGun : MonoBehaviour
     void UpdateLaserLine(LineRenderer line, bool isDamaging)
     {
         Vector3 startPos = firePoint != null ? firePoint.position : transform.position;
-        Vector3 direction = transform.right; // Gun points right in local space
+        
+        // Calculate direction based on gun's rotation
+        // Use the gun's actual forward direction (transform.right for 2D)
+        Vector3 direction = transform.right;
+        
+        // Ensure we're always shooting forward (positive X in world space when shootOnlyRight is true)
+        if (shootOnlyRight && direction.x < 0)
+        {
+            // If somehow the direction is backwards, flip it
+            direction = -direction;
+        }
+        
         Vector3 endPos = startPos + direction * laserRange;
         
         line.SetPosition(0, startPos);
@@ -125,6 +159,13 @@ public class LaserGun : MonoBehaviour
     {
         Vector3 startPos = firePoint != null ? firePoint.position : transform.position;
         Vector3 direction = transform.right;
+        
+        // Ensure we're always shooting forward (positive X in world space when shootOnlyRight is true)
+        if (shootOnlyRight && direction.x < 0)
+        {
+            // If somehow the direction is backwards, flip it
+            direction = -direction;
+        }
         
         RaycastHit2D hit = Physics2D.Raycast(startPos, direction, laserRange, playerLayer);
         
@@ -145,5 +186,16 @@ public class LaserGun : MonoBehaviour
         Gizmos.color = Color.red;
         Vector3 direction = transform.right;
         Gizmos.DrawRay(firePoint.position, direction * laserRange);
+        
+        // Draw shooting arc range
+        Gizmos.color = Color.yellow;
+        float angleRange = shootOnlyRight ? maxAngle - minAngle : maxAngle - minAngle;
+        Vector3 center = firePoint.position;
+        
+        // Draw min and max angle lines
+        Vector3 minDir = Quaternion.Euler(0, 0, minAngle) * Vector3.right;
+        Vector3 maxDir = Quaternion.Euler(0, 0, maxAngle) * Vector3.right;
+        Gizmos.DrawRay(center, minDir * laserRange * 0.5f);
+        Gizmos.DrawRay(center, maxDir * laserRange * 0.5f);
     }
 }

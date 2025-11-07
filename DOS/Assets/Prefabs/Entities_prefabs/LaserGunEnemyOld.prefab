@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 7185754288577095572}
   - component: {fileID: 4515321257668211156}
   m_Layer: 10
-  m_Name: LaserGunEnemy
+  m_Name: LaserGunEnemyOld
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
