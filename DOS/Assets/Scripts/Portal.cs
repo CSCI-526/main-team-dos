@@ -63,6 +63,7 @@ public class Portal : MonoBehaviour
     {
         return other.CompareTag("Player") ||
                other.CompareTag("MovableObstacle") ||
+               other.CompareTag("LaserEnemy") ||
                other.CompareTag("Enemy");
     }
 
