@@ -8,7 +8,7 @@ public class Tutorial2 : MonoBehaviour
     private string[] instructions =
     {
         "Move the Obstacle on to the Red Gate Trigger to Open the Red Gate Using Portals\nYou Can Reset The Obstacle By Pressing 'O'",
-        "Teleport the Enemy away to get to the Exit.\nRestart the Level by Pressing 'L'",
+        "You can Jump Over / Teleport the Enemy away to get to the Exit.\nRestart the Level by Pressing 'L'",
     };
 
     private int instructionIndex = 0;
