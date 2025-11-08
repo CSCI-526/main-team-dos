@@ -28,7 +28,6 @@ public class LaserGun : MonoBehaviour
     
     private LineRenderer warningLine;
     private LineRenderer laserLine;
-    private bool isShooting = false;
 
     void Start()
     {
@@ -118,7 +117,6 @@ public class LaserGun : MonoBehaviour
 
     IEnumerator FireLaser()
     {
-        isShooting = true;
         laserLine.enabled = true;
         
         float elapsed = 0f;
@@ -131,7 +129,6 @@ public class LaserGun : MonoBehaviour
         }
         
         laserLine.enabled = false;
-        isShooting = false;
     }
 
     void UpdateLaserLine(LineRenderer line, bool isDamaging)

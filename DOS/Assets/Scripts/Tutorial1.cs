@@ -12,7 +12,7 @@ public class Tutorial1 : MonoBehaviour
         "Press 'W/↑' To Jump",
         "Shoot Blue Portal Using Left Click\nYou can only Shoot Portals on the Brown Surfaces",
         "Shoot Orange Portal Using Right Click\nYou can only Shoot Portals on the Brown Surfaces",
-        "Jump Into The Portals\nYou can CLEAR the portals by pressing R",
+        "Jump Into The Portals\nYou can use both portals to enter/exit\nYou can CLEAR the portals by pressing R",
     };
 
     private int instructionIndex = 0;
