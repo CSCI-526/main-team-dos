@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   csvFileName: portals
-  gameLevel: Level_1
+  gameLevel: Level_10
   bluePortalDotPrefab: {fileID: 8287932889331477185, guid: 8181bf976733e4a6287a504024c5055f, type: 3}
   orangePortalDotPrefab: {fileID: 8287932889331477185, guid: 6454fbf8972d043888dde2c58f7a1bd7, type: 3}
 --- !u!4 &17306766
@@ -3942,6 +3942,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnKey: 111
+  maxSpeed: 17
+  fallMultiplier: 2.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
