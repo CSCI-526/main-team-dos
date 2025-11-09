@@ -28,9 +28,37 @@ public class PlayerCollision : MonoBehaviour
         {
             isFailing = true;
 
-            // Show the "MISSION FAILED" text
-            missionFailedText.text = "MISSION FAILED";
+            // Disable the large background (just don't remove this comment please it helped me disable once in for all for all the levels, there's a mixup for our mission fail text let this be here for now)
+            if (missionFailedText != null)
+            {
+                missionFailedText.gameObject.SetActive(false);
+            }
+
+            // Show and configure the mission failed panel
             missionFailedPanel.SetActive(true);
+            
+            // Change panel background to RED
+            SpriteRenderer panelSprite = missionFailedPanel.GetComponent<SpriteRenderer>();
+            if (panelSprite != null)
+            {
+                panelSprite.color = new Color(0.6f, 0f, 0f, 0.8f);
+            }
+            
+            // Find and update the heading text
+            Transform canvasTransform = missionFailedPanel.transform.Find("Canvas");
+            if (canvasTransform != null)
+            {
+                Transform headingTransform = canvasTransform.Find("Heading");
+                if (headingTransform != null)
+                {
+                    TMP_Text headingText = headingTransform.GetComponent<TMP_Text>();
+                    if (headingText != null)
+                    {
+                        headingText.text = "Mission Failed";
+                        headingText.fontSize = 50; // Make title bigger
+                    }
+                }
+            }
 
             // Freeze the game
             Time.timeScale = 0f;
@@ -45,8 +73,39 @@ public class PlayerCollision : MonoBehaviour
         if (!isFailing && !isInvincible)
         {
             isFailing = true;
-            missionFailedText.text = "MISSION FAILED";
+            
+            // Disable the large background mission fail text (don't remove this comment please it helped me disable once in for all for all the levels, there's a mixup for our mission fail text let this be)
+            if (missionFailedText != null)
+            {
+                missionFailedText.gameObject.SetActive(false);
+            }
+            
+            // Show and configure the mission failed panel
             missionFailedPanel.SetActive(true);
+            
+            // Change panel background to RED
+            SpriteRenderer panelSprite = missionFailedPanel.GetComponent<SpriteRenderer>();
+            if (panelSprite != null)
+            {
+                panelSprite.color = new Color(1f, 0f, 0f, 1f); // Red color
+            }
+            
+            // Find and update the heading text
+            Transform canvasTransform = missionFailedPanel.transform.Find("Canvas");
+            if (canvasTransform != null)
+            {
+                Transform headingTransform = canvasTransform.Find("Heading");
+                if (headingTransform != null)
+                {
+                    TMP_Text headingText = headingTransform.GetComponent<TMP_Text>();
+                    if (headingText != null)
+                    {
+                        headingText.text = "Mission Failed";
+                        headingText.fontSize = 50; 
+                    }
+                }
+            }
+            
             Time.timeScale = 0f;
         }
     }

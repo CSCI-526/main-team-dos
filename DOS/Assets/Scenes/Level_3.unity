@@ -1416,15 +1416,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2860556048151604103, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 70.2
       objectReference: {fileID: 0}
     - target: {fileID: 2860556048151604103, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4
+      value: -0.00000047684
       objectReference: {fileID: 0}
     - target: {fileID: 2860556048151604103, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -272
+      value: -306.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883835061739569522, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3090993544894297822, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1465,6 +1469,14 @@ PrefabInstance:
     - target: {fileID: 3090993544894297822, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321162687479212255, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321162687479212255, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -82
       objectReference: {fileID: 0}
     - target: {fileID: 5490758933076926481, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_Name
@@ -1526,6 +1538,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Mission Failed
       objectReference: {fileID: 0}
+    - target: {fileID: 8054068380427812274, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054068380427812274, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054068380427812274, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8580309181051187732, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_text
       value: Restart
@@ -1544,15 +1568,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943915676462455456, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 60.27
       objectReference: {fileID: 0}
     - target: {fileID: 8943915676462455456, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4
+      value: -0.00000047684
       objectReference: {fileID: 0}
     - target: {fileID: 8943915676462455456, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -609
+      value: -510
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1849,7 +1873,7 @@ PrefabInstance:
     - target: {fileID: 4342759139285066309, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: missionFailedText
       value: 
-      objectReference: {fileID: 446286887}
+      objectReference: {fileID: 0}
     - target: {fileID: 4342759139285066309, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: missionFailedPanel
       value: 
