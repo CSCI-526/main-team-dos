@@ -7,8 +7,14 @@ public class Tutorial2 : MonoBehaviour
 {
     private string[] instructions =
     {
-        "Move the Obstacle on to the Red Gate Trigger to Open the Red Gate Using Portals\nYou Can Reset The Obstacle By Pressing 'O'",
-        "You can Jump Over / Teleport the Enemy away to get to the Exit.\nRestart the Level by Pressing 'L'",
+        "Move the Obstacle on to the Red Gate Trigger to Open the Red Gate\nYou Can Reset The Obstacle By Pressing 'O'",
+        "You can Jump Over / Teleport the Enemy away to get to the Exit.",
+    };
+
+    private string[] instructionsColor =
+    {
+        "FF0000",
+        "009D2B",
     };
 
     private int instructionIndex = 0;
@@ -21,7 +27,7 @@ public class Tutorial2 : MonoBehaviour
         instructionObject = GameObject.FindGameObjectWithTag("Instruction");
         instructionText = instructionObject.GetComponent<TextMeshProUGUI>();
         UnityEngine.Debug.Log($"Instruction: {instructions[instructionIndex]}");
-        instructionText.text = instructions[instructionIndex];
+        instructionText.text = $"<color=#{instructionsColor[instructionIndex]}>{instructions[instructionIndex]}</color>";
     }
 
     void Update()
@@ -63,11 +69,11 @@ public class Tutorial2 : MonoBehaviour
 
         if (instructionIndex < instructions.Length)
         {
-            instructionText.text = instructions[instructionIndex];
+            instructionText.text = $"<color=#{instructionsColor[instructionIndex]}>{instructions[instructionIndex]}</color>";
         }
         else
         {
-            instructionText.text = "Now Reach the Exit Door";
+            instructionText.text = $"<color=#009D2B>Now Reach the Exit Door</color>";
             exitDoor.SetActive(true);
         }
     }

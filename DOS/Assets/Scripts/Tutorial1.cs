@@ -7,12 +7,16 @@ public class Tutorial1 : MonoBehaviour
 {
     private string[] instructions =
     {
-        "Press 'D/→' To Go Right",
-        "Press 'A/←' To Go Left",
-        "Press 'W/↑' To Jump",
-        "Shoot Blue Portal Using Left Click\nYou can only Shoot Portals on the Brown Surfaces",
-        "Shoot Orange Portal Using Right Click\nYou can only Shoot Portals on the Brown Surfaces",
+        "Shoot Blue Portal Using Left Click / Press 'C'\nYou can only Shoot Portals on the Brown Surfaces",
+        "Shoot Orange Portal Using Right Click /Press 'V'\nYou can only Shoot Portals on the Brown Surfaces",
         "Jump Into The Portals\nYou can use both portals to enter/exit\nYou can CLEAR the portals by pressing R",
+    };
+
+    private string[] instructionsColor =
+    {
+        "0F108C",
+        "FF6E00",
+        "000000",
     };
 
     private int instructionIndex = 0;
@@ -25,26 +29,11 @@ public class Tutorial1 : MonoBehaviour
         instructionObject = GameObject.FindGameObjectWithTag("Instruction");
         instructionText = instructionObject.GetComponent<TextMeshProUGUI>();
         UnityEngine.Debug.Log($"Instruction: {instructions[instructionIndex]}");
-        instructionText.text = instructions[instructionIndex];
+        instructionText.text = $"<color=#{instructionsColor[instructionIndex]}>{instructions[instructionIndex]}</color>";
     }
 
     void Update()
     {
-        // Done Going Right
-        if (instructionIndex == 0 && (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)))
-        {
-            NextInstruction();
-        }
-        // Done Going Left
-        else if (instructionIndex == 1 && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)))
-        {
-            NextInstruction();
-        }
-        // Done Jumping
-        else if (instructionIndex == 2 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
-        {
-            NextInstruction();
-        }
     }
 
     void OnEnable()
@@ -63,7 +52,7 @@ public class Tutorial1 : MonoBehaviour
 
     private void HandleBluePortalCreated()
     {
-        if (instructionIndex == 3)
+        if (instructionIndex == 0)
         {
             NextInstruction();
         }
@@ -71,7 +60,7 @@ public class Tutorial1 : MonoBehaviour
 
     private void HandleOrangePortalCreated()
     {
-        if (instructionIndex == 4)
+        if (instructionIndex == 1)
         {
             NextInstruction();
         }
@@ -79,7 +68,7 @@ public class Tutorial1 : MonoBehaviour
 
     private void HandlePlayerTeleport()
     {
-        if (instructionIndex == 5)
+        if (instructionIndex == 2)
         {
             NextInstruction();
         }
@@ -92,11 +81,11 @@ public class Tutorial1 : MonoBehaviour
 
         if (instructionIndex < instructions.Length)
         {
-            instructionText.text = instructions[instructionIndex];
+            instructionText.text = $"<color=#{instructionsColor[instructionIndex]}>{instructions[instructionIndex]}</color>";
         }
         else
         {
-            instructionText.text = "Now Reach the Exit Door";
+            instructionText.text = $"<color=#009D2B>Now Reach the Exit Door</color>";
             exitDoor.SetActive(true);
         }
     }
