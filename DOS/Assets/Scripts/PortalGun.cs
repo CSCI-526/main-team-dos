@@ -38,15 +38,14 @@ public class PortalGun : MonoBehaviour
         beamLine = GetComponent<LineRenderer>();
         if (beamLine != null) { beamLine.enabled = false; }
 
-        // Default beam colors (can be overridden in Inspector)
         ColorUtility.TryParseHtmlString("#0D0D8C", out blueBeamColor);
         ColorUtility.TryParseHtmlString("#FF6E00", out orangeBeamColor);
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1")) { ShootPortal(bluePortalPrefab, ref activeBluePortal); }
-        if (Input.GetButtonDown("Fire2")) { ShootPortal(orangePortalPrefab, ref activeOrangePortal); }
+        if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.C)) { ShootPortal(bluePortalPrefab, ref activeBluePortal); }
+        if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.V)) { ShootPortal(orangePortalPrefab, ref activeOrangePortal); }
         if (Input.GetKeyDown(KeyCode.R))   { DeleteAllPortals(); }
     }
 
@@ -252,7 +251,7 @@ public class PortalGun : MonoBehaviour
         }
     }
 
-    void DeleteAllPortals()
+    public void DeleteAllPortals()
     {
         if (activeBluePortal != null)
         {
