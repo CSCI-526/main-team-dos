@@ -25,11 +25,11 @@ public class Enemy : MonoBehaviour
     private bool movingRight = true;
     private float lastFlipTime = -1f;
 
-    // --- NEW ---
+    
     public bool IsHarmless { get; private set; } = false;
     private Coroutine activeHarmlessCoroutine = null;
     public float postTeleportHarmlessDuration = 0.1f;
-    // --- END NEW ---
+    
 
     void Awake()
     {
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         rb.freezeRotation = true;
     }
 
-    // --- NEW ---
+   
     public void OnTeleport()
     {
         if (activeHarmlessCoroutine != null)
@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
         IsHarmless = false;
         activeHarmlessCoroutine = null;
     }
-    // --- END NEW ---
+
 
     void FixedUpdate()
     {

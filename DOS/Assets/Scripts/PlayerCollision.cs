@@ -26,17 +26,15 @@ public class PlayerCollision : MonoBehaviour
 
         if (!isFailing && isHazardous && !isInvincible)
         {
-            // --- NEW ---
-            // Check if the hazard is an enemy and if it's currently harmless
             if (collision.collider.CompareTag("Enemy"))
             {
                 Enemy enemy = collision.collider.GetComponent<Enemy>();
                 if (enemy != null && enemy.IsHarmless)
                 {
-                    return; // Do not fail, the enemy just teleported
+                    return; 
                 }
             }
-            // --- END NEW ---
+
 
             isFailing = true;
 

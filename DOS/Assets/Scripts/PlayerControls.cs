@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Multiplier for gravity when jump is released early.")]
     public float lowJumpMultiplier = 2f; 
     
-    // Public variable for invincibility duration
     public float postTeleportInvincibility = 0.2f;
 
     [Header("Portal Physics")]
@@ -30,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool _controlsOverriddenByPortal = false;
-    private int portalGraceFrames; // <-- THIS IS BACK
+    private int portalGraceFrames; 
     private bool facingRight = true;
     private Transform portalGunTransform;
 
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
     public void OnTeleport()
     {
         _controlsOverriddenByPortal = true;
-        portalGraceFrames = 2; // <-- SETTING GRACE FRAMES
+        portalGraceFrames = 2; 
         
         if (activeInvincibilityCoroutine != null)
         {
@@ -76,31 +75,25 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // --- FIXED LOGIC ---
+    
         if (portalGraceFrames > 0)
         {
-            // We are in the grace period, countdown frames
             portalGraceFrames--;
         }
         else if (_controlsOverriddenByPortal && isGrounded && Mathf.Abs(rb.linearVelocity.x) > speed)
         {
-            // Grace period is over. Now, if we are grounded, kill momentum.
-            // This is what stops you when you *land*
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             _controlsOverriddenByPortal = false;
         }
-        // --- END FIXED LOGIC ---
+        
 
-        // Jump Physics 
         bool wJumpHeld = Input.GetAxisRaw("Vertical") > 0.5f; 
         if (rb.linearVelocity.y < 0)
         {
-            // Player is falling
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
         }
         else if (rb.linearVelocity.y > 0 && !(Input.GetButton("Jump") || wJumpHeld))
         {
-            // Player is rising, but jump button is released
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
         
@@ -124,15 +117,13 @@ public class PlayerController : MonoBehaviour
         // --- MOMENTUM LOGIC ---
         if (_controlsOverriddenByPortal)
         {
-            // Check if portal momentum has worn off (i.e., player is slower than normal run speed)
             if (Mathf.Abs(rb.linearVelocity.x) <= speed)
             {
                 _controlsOverriddenByPortal = false;
-                // Fall through to normal controls
             }
             else
             {
-                // Player is pressing a key
+                
                 if (Mathf.Abs(horizontalInput) > 0.1f)
                 {
                     // Check if player is pressing *against* their momentum
@@ -147,22 +138,16 @@ public class PlayerController : MonoBehaviour
                         );
                         rb.linearVelocity = new Vector2(newVelocityX, rb.linearVelocity.y);
                     }
-                    // If pressing *with* momentum, we do nothing and let the 'return' skip normal controls
                 }
                 
                 // --- Flipping while in momentum state ---
                 if (horizontalInput > 0 && !facingRight) Flip();
                 else if (horizontalInput < 0 && facingRight) Flip();
-                // ---
                 
-                // Skip the normal movement logic below
                 return;
             }
         }
-        // --- END MOMENTUM LOGIC ---
-
-
-        // Standard Horizontal Movement (only runs if _controlsOverriddenByPortal is false)
+        
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
 
         if (horizontalInput > 0 && !facingRight)
