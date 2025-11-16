@@ -26,6 +26,16 @@ public class PlayerCollision : MonoBehaviour
 
         if (!isFailing && isHazardous && !isInvincible)
         {
+            if (collision.collider.CompareTag("Enemy"))
+            {
+                Enemy enemy = collision.collider.GetComponent<Enemy>();
+                if (enemy != null && enemy.IsHarmless)
+                {
+                    return; 
+                }
+            }
+
+
             isFailing = true;
 
             // Disable the large background (just don't remove this comment please it helped me disable once in for all for all the levels, there's a mixup for our mission fail text let this be here for now)

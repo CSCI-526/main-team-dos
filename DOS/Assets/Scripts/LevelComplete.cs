@@ -29,6 +29,14 @@ public class LevelComplete : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
+        // Check if the player just teleported (and is invincible)
+        PlayerController player = other.GetComponent<PlayerController>();
+        if (player != null && player.IsInvincible)
+        {
+            // Player is in the post-teleport grace period, ignore the trigger
+            return; 
+        }
+
         timer.Stop();
         float finalTime = timer.elapsedTime;
 

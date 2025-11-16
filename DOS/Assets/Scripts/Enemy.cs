@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; // <-- ADDED THIS
 
 public class Enemy : MonoBehaviour
 {
@@ -24,6 +25,12 @@ public class Enemy : MonoBehaviour
     private bool movingRight = true;
     private float lastFlipTime = -1f;
 
+    
+    public bool IsHarmless { get; private set; } = false;
+    private Coroutine activeHarmlessCoroutine = null;
+    public float postTeleportHarmlessDuration = 0.1f;
+    
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,6 +42,25 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
     }
+
+   
+    public void OnTeleport()
+    {
+        if (activeHarmlessCoroutine != null)
+        {
+            StopCoroutine(activeHarmlessCoroutine);
+        }
+        activeHarmlessCoroutine = StartCoroutine(HarmlessCoroutine());
+    }
+
+    private IEnumerator HarmlessCoroutine()
+    {
+        IsHarmless = true;
+        yield return new WaitForSeconds(postTeleportHarmlessDuration);
+        IsHarmless = false;
+        activeHarmlessCoroutine = null;
+    }
+
 
     void FixedUpdate()
     {
