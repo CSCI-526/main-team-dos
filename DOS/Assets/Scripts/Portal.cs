@@ -101,6 +101,14 @@ public class Portal : MonoBehaviour
             var player = obj.GetComponent<PlayerController>();
             if (player != null) player.OnTeleport();
         }
+        // --- NEW ---
+        else if (obj.CompareTag("Enemy"))
+        {
+            var enemy = obj.GetComponent<Enemy>();
+            if (enemy != null) enemy.OnTeleport();
+        }
+        // --- END NEW ---
+
 
         // Teleport Event & analytics
         if (amplitude != null)
