@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2799946966444299563}
   - component: {fileID: 2529952864991180075}
   - component: {fileID: 964224417355242325}
-  - component: {fileID: 3259962805724163705}
   - component: {fileID: 6461337149420769972}
   m_Layer: 0
   m_Name: GateTrigger
@@ -103,24 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gate: {fileID: 0}
---- !u!114 &3259962805724163705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4900022366808687394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc40f0c0c63a847d9a13bdf64524e4d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gateRenderer: {fileID: 0}
-  gateClosedSprite: {fileID: 21300000, guid: c03b1f7333c4747df9212ef023c9dd61, type: 3}
-  gateOpenSprite: {fileID: 21300000, guid: e0a31ee6eb9d74eb19993ec9a472cab4, type: 3}
-  plateRenderer: {fileID: 2529952864991180075}
-  plateUpSprite: {fileID: 21300000, guid: 1b9d93aaba3cf4838aee5cb5ea094ad2, type: 3}
-  plateDownSprite: {fileID: 21300000, guid: dab41fb7d17fa44ef846a652d5e369ae, type: 3}
 --- !u!61 &6461337149420769972
 BoxCollider2D:
   m_ObjectHideFlags: 0

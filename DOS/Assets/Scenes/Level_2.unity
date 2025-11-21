@@ -3814,7 +3814,9 @@ PrefabInstance:
       propertyPath: m_TagString
       value: GateTrigger
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 964224417355242325, guid: b632920aa56e343438c28fd3d9ce50c2, type: 3}
+    - {fileID: 6461337149420769972, guid: b632920aa56e343438c28fd3d9ce50c2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

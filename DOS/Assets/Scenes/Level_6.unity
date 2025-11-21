@@ -4120,7 +4120,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 130262816}
         m_TargetAssemblyTypeName: StarterMenu, Assembly-CSharp
-        m_MethodName: LoadLevelSelector
+        m_MethodName: LoadStarterPage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
