@@ -7,7 +7,7 @@ public class Tutorial2 : MonoBehaviour
 {
     private string[] instructions =
     {
-        "Move the Obstacle on to the Red Gate Trigger to Open the Red Gate\nYou Can Reset The Obstacle By Pressing 'O'",
+        "Move the Obstacle on to the Gate Trigger to Open the Gate\nYou Can Reset The Obstacle By Pressing 'O'",
         "You can Jump Over / Teleport the Enemy away to get to the Exit.",
     };
 
