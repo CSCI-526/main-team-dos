@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 535884113601285985}
   - component: {fileID: 1083649880286521623}
   - component: {fileID: 7419527488070958728}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Spike
   m_TagString: Hazard
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 2699823927816469486}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.13, y: 45.27, z: -0.06660637}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -0.6397, y: 45.6058, z: -0.06660637}
+  m_LocalScale: {x: 7.0365973, y: 7.216328, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0.67967296, b: 0.2028302, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0049772a1acaf4a49b69bb504ffe2669, type: 3}
+  m_Color: {r: 0.990566, g: 0.50338846, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -125,8 +125,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.15, y: 0.1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -134,7 +134,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+    - - {x: 0.08351785, y: 0.042259913}
+      - {x: 0.007009981, y: 0.048538644}
+      - {x: -0.07812034, y: 0.049751524}
+      - {x: -0.08759403, y: -0.04995446}
+      - {x: 0.00091240084, y: -0.052260034}
+      - {x: 0.08998686, y: -0.054071352}
   m_UseDelaunayMesh: 0
