@@ -361,7 +361,7 @@ MonoBehaviour:
   moveSpeed: 2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 8896
   wallCheck: {fileID: 2324727861088468569}
   wallCheckDistance: 0.59
   groundCheck: {fileID: 1805009132772025919}

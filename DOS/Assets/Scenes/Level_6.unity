@@ -2229,7 +2229,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7024180014914867976, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 2752
+      value: 10944
       objectReference: {fileID: 0}
     - target: {fileID: 7185754288577095572, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
       propertyPath: m_Material
@@ -3327,7 +3327,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7024180014914867976, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 2752
+      value: 10944
       objectReference: {fileID: 0}
     - target: {fileID: 7185754288577095572, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
       propertyPath: m_Material
@@ -3531,7 +3531,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7024180014914867976, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 2752
+      value: 10944
       objectReference: {fileID: 0}
     - target: {fileID: 7185754288577095572, guid: 12834b75bf2d3df4aaf5d76f351b2258, type: 3}
       propertyPath: m_Material
@@ -4530,7 +4530,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1963372919148032321, guid: b0bd73b3f0bec41b3ba72122e2a22050, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 1728
+      value: 8896
       objectReference: {fileID: 0}
     - target: {fileID: 6029037926729119467, guid: b0bd73b3f0bec41b3ba72122e2a22050, type: 3}
       propertyPath: m_LocalPosition.x
