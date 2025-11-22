@@ -88,6 +88,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        Debug.Log($"Other tag compare: {other.CompareTag("Enemy")}");
         if (other.CompareTag("Enemy") && Time.time - lastFlipTime >= flipCooldown)
         {
             if (other.transform.position.x > transform.position.x)

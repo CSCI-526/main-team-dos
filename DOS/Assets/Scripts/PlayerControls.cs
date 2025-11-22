@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Multiplier for gravity when jump is released early.")]
     public float lowJumpMultiplier = 2f; 
     
-    public float postTeleportInvincibility = 0.2f;
+    public float postTeleportInvincibility = 0.1f;
 
     [Header("Portal Physics")]
     [Tooltip("How quickly the player can 'fight' or 'dampen' portal momentum.")]
@@ -39,10 +39,16 @@ public class PlayerController : MonoBehaviour
 
     public bool IsInvincible { get; private set; } = false;
 
+    private Animator animator;
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+
+        animator = GetComponent<Animator>();
+
     }
 
     public void OnTeleport()
@@ -74,6 +80,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        animator.SetBool("isGrounded", isGrounded);
 
     
         if (portalGraceFrames > 0)
@@ -102,7 +109,9 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
         }
+
     }
+    
 
     void Update()
     {
@@ -113,6 +122,8 @@ public class PlayerController : MonoBehaviour
         }
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
+        animator.SetFloat("speed", Mathf.Abs(horizontalInput));
+
 
         // --- MOMENTUM LOGIC ---
         if (_controlsOverriddenByPortal)

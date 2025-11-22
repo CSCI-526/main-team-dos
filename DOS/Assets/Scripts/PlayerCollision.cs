@@ -4,7 +4,6 @@ using TMPro;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public TextMeshProUGUI missionFailedText;
     [SerializeField] private GameObject missionFailedPanel;
 
     private bool isFailing = false;
@@ -37,12 +36,6 @@ public class PlayerCollision : MonoBehaviour
 
 
             isFailing = true;
-
-            // Disable the large background (just don't remove this comment please it helped me disable once in for all for all the levels, there's a mixup for our mission fail text let this be here for now)
-            if (missionFailedText != null)
-            {
-                missionFailedText.gameObject.SetActive(false);
-            }
 
             // Show and configure the mission failed panel
             missionFailedPanel.SetActive(true);
@@ -84,11 +77,6 @@ public class PlayerCollision : MonoBehaviour
         {
             isFailing = true;
             
-            // Disable the large background mission fail text (don't remove this comment please it helped me disable once in for all for all the levels, there's a mixup for our mission fail text let this be)
-            if (missionFailedText != null)
-            {
-                missionFailedText.gameObject.SetActive(false);
-            }
             
             // Show and configure the mission failed panel
             missionFailedPanel.SetActive(true);
