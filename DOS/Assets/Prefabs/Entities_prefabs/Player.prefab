@@ -720,7 +720,7 @@ PrefabInstance:
     - target: {fileID: 7429653576512404592, guid: 1d2d9fc8e619946f8bc11a6c8b6633b7, type: 3}
       propertyPath: shootSound
       value: 
-      objectReference: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
+      objectReference: {fileID: 8300000, guid: 728e93dd69ce9e8469aee290816b7b9c, type: 3}
     - target: {fileID: 7429653576512404592, guid: 1d2d9fc8e619946f8bc11a6c8b6633b7, type: 3}
       propertyPath: raycastOrigin
       value: 
@@ -915,8 +915,8 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
-  m_Pitch: 2.49
+  m_Volume: 0.05
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0

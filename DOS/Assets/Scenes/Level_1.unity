@@ -2361,6 +2361,8 @@ MonoBehaviour:
   timer: {fileID: 115012232}
   missionCompletePanel: {fileID: 4099243221005364002}
   missionCompleteText: {fileID: 4099243221005364003}
+  audioSource: {fileID: 876304873}
+  levelCompleteSound: {fileID: 8300000, guid: 3255f7ce27110ae4e880a44075ebfa46, type: 3}
 --- !u!61 &876304871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2407,6 +2409,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.9798935}
   m_EdgeRadius: 0
+--- !u!82 &876304873 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7031058214213336087, guid: d3f867f8994a74ae59c592d31e204f14, type: 3}
+  m_PrefabInstance: {fileID: 3268532919977125861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &961104159 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2190198854248291184, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
@@ -4403,7 +4410,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7746047963872948975, guid: d3f867f8994a74ae59c592d31e204f14, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
