@@ -3027,6 +3027,8 @@ MonoBehaviour:
   timer: {fileID: 115012232}
   missionCompletePanel: {fileID: 4099243221005364002}
   missionCompleteText: {fileID: 4099243221005364003}
+  audioSource: {fileID: 3268532919977125862}
+  levelCompleteSound: {fileID: 8300000, guid: 3255f7ce27110ae4e880a44075ebfa46, type: 3}
 --- !u!61 &876304871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5848,6 +5850,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 876304871}
   m_SourcePrefab: {fileID: 100100000, guid: d3f867f8994a74ae59c592d31e204f14, type: 3}
+--- !u!82 &3268532919977125862 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7031058214213336087, guid: d3f867f8994a74ae59c592d31e204f14, type: 3}
+  m_PrefabInstance: {fileID: 3268532919977125861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4099243221005364001
 PrefabInstance:
   m_ObjectHideFlags: 0

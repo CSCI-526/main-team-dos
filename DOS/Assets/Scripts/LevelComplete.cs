@@ -17,6 +17,10 @@ public class LevelComplete : MonoBehaviour
     [SerializeField] private GameObject missionCompletePanel;
     [SerializeField] private TMP_Text missionCompleteText;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip levelCompleteSound;
+
     [System.Serializable]
     public class LeaderboardEntry
     {
@@ -39,6 +43,12 @@ public class LevelComplete : MonoBehaviour
 
         timer.Stop();
         float finalTime = timer.elapsedTime;
+
+        // --- Play Audio ---
+        if (audioSource != null && levelCompleteSound != null)
+        {
+            audioSource.PlayOneShot(levelCompleteSound);
+        }
 
         Time.timeScale = 0f;
         missionCompletePanel.SetActive(true);
@@ -179,5 +189,4 @@ public class LevelComplete : MonoBehaviour
             }
         }
     }
-
 }

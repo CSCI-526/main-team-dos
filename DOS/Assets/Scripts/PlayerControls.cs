@@ -8,19 +8,20 @@ public class PlayerController : MonoBehaviour
     private Coroutine activeInvincibilityCoroutine = null;
 
     [Header("Jump Physics")]
-    [Tooltip("The initial velocity applied when jumping.")]
     public float jumpForce = 5f; 
-    
-    [Tooltip("Multiplier for gravity when falling.")]
     public float fallMultiplier = 2.5f; 
-    [Tooltip("Multiplier for gravity when jump is released early.")]
     public float lowJumpMultiplier = 2f; 
-    
     public float postTeleportInvincibility = 0.1f;
 
     [Header("Portal Physics")]
-    [Tooltip("How quickly the player can 'fight' or 'dampen' portal momentum.")]
     public float portalMomentumDampening = 50f;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource sfxSource;       // Drag Main AudioSource here (for Jump/Land)
+    [SerializeField] private AudioSource footstepsSource; // Drag 2nd AudioSource here (for Walking)
+    [SerializeField] private AudioClip jumpClip;
+    [SerializeField] private AudioClip landClip;
+    [SerializeField] private AudioClip walkClip;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isGrounded = false;
+    private bool wasGrounded = false; // To track landing
     private bool _controlsOverriddenByPortal = false;
     private int portalGraceFrames; 
     private bool facingRight = true;
@@ -41,14 +43,18 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
-
         animator = GetComponent<Animator>();
 
+        // Safety check for AudioSources
+        if (footstepsSource != null)
+        {
+            footstepsSource.clip = walkClip;
+            footstepsSource.loop = true;
+        }
     }
 
     public void OnTeleport()
@@ -79,10 +85,23 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        // Logic to detect Landing (Must happen BEFORE updating isGrounded)
+        bool currentlyGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        // If we weren't grounded last frame, but we are now -> We Landed
+        if (!wasGrounded && currentlyGrounded)
+        {
+            if (sfxSource != null && landClip != null)
+            {
+                sfxSource.PlayOneShot(landClip);
+            }
+        }
+
+        isGrounded = currentlyGrounded;
+        wasGrounded = isGrounded; // Update for next frame
+
         animator.SetBool("isGrounded", isGrounded);
 
-    
         if (portalGraceFrames > 0)
         {
             portalGraceFrames--;
@@ -92,7 +111,6 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             _controlsOverriddenByPortal = false;
         }
-        
 
         bool wJumpHeld = Input.GetAxisRaw("Vertical") > 0.5f; 
         if (rb.linearVelocity.y < 0)
@@ -104,14 +122,11 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
         
-        
         if (rb.linearVelocity.y < -maxFallSpeed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
         }
-
     }
-    
 
     void Update()
     {
@@ -124,6 +139,26 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         animator.SetFloat("speed", Mathf.Abs(horizontalInput));
 
+        // --- AUDIO: WALKING ---
+        if (footstepsSource != null)
+        {
+            // Play if: Grounded AND moving AND not currently playing
+            if (isGrounded && Mathf.Abs(horizontalInput) > 0.1f && !_controlsOverriddenByPortal)
+            {
+                if (!footstepsSource.isPlaying)
+                {
+                    footstepsSource.Play();
+                }
+            }
+            else
+            {
+                // Stop if: In air OR stopped moving
+                if (footstepsSource.isPlaying)
+                {
+                    footstepsSource.Stop();
+                }
+            }
+        }
 
         // --- MOMENTUM LOGIC ---
         if (_controlsOverriddenByPortal)
@@ -134,13 +169,10 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                
                 if (Mathf.Abs(horizontalInput) > 0.1f)
                 {
-                    // Check if player is pressing *against* their momentum
                     if (Mathf.Sign(horizontalInput) != Mathf.Sign(rb.linearVelocity.x))
                     {
-                        // Apply dampening
                         float targetSpeed = horizontalInput * speed;
                         float newVelocityX = Mathf.MoveTowards(
                             rb.linearVelocity.x, 
@@ -151,7 +183,6 @@ public class PlayerController : MonoBehaviour
                     }
                 }
                 
-                // --- Flipping while in momentum state ---
                 if (horizontalInput > 0 && !facingRight) Flip();
                 else if (horizontalInput < 0 && facingRight) Flip();
                 
@@ -161,32 +192,29 @@ public class PlayerController : MonoBehaviour
         
         rb.linearVelocity = new Vector2(horizontalInput * speed, rb.linearVelocity.y);
 
-        if (horizontalInput > 0 && !facingRight)
-        {
-            Flip();
-        }
-        else if (horizontalInput < 0 && facingRight)
-        {
-            Flip();
-        }
+        if (horizontalInput > 0 && !facingRight) Flip();
+        else if (horizontalInput < 0 && facingRight) Flip();
 
         // Jump Input Logic 
-        
         bool wJumpHeld = Input.GetAxisRaw("Vertical") > 0.5f;
         bool wJumpPressed = wJumpHeld && !wJumpPressedLastFrame;
         wJumpPressedLastFrame = wJumpHeld; 
 
         if ((Input.GetButtonDown("Jump") || wJumpPressed) && isGrounded)
         {
-            // Set velocity directly for consistent height
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            
+            // Play Jump Sound
+            if (sfxSource != null && jumpClip != null)
+            {
+                sfxSource.PlayOneShot(jumpClip);
+            }
         }
     }
 
     void Flip()
     {
         facingRight = !facingRight;
-
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;

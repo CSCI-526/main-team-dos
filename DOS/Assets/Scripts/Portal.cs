@@ -11,6 +11,12 @@ public class Portal : MonoBehaviour
     public float exitOffset = 0.1f;
     private bool isTeleporting = false;
 
+    [Header("Audio")]
+    [Tooltip("Source to play the teleport sound.")]
+    public AudioSource portalAudioSource;
+    [Tooltip("The sound to play when an object enters this portal.")]
+    public AudioClip teleportSound;
+
     private AmplitudeAnalytics amplitude;
 
     public static event Action OnPlayerTeleport;
@@ -30,6 +36,12 @@ public class Portal : MonoBehaviour
         if (amplitude == null)
         {
             amplitude = gameObject.AddComponent<AmplitudeAnalytics>();
+        }
+        
+        // Auto-find audio source if not manually assigned
+        if (portalAudioSource == null)
+        {
+            portalAudioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -72,6 +84,13 @@ public class Portal : MonoBehaviour
         var rb = obj.GetComponent<Rigidbody2D>();
         if (rb == null) yield break;
 
+        // --- PLAY SOUND ---
+        if (portalAudioSource != null && teleportSound != null)
+        {
+            portalAudioSource.PlayOneShot(teleportSound);
+        }
+        // ------------------
+
         // Prevent immediate back-teleport
         var destPortalComp = destinationPortal.GetComponent<Portal>();
         if (destPortalComp != null) destPortalComp.isTeleporting = true;
@@ -107,8 +126,6 @@ public class Portal : MonoBehaviour
             var enemy = obj.GetComponent<Enemy>();
             if (enemy != null) enemy.OnTeleport();
         }
-        
-
 
         // Teleport Event & analytics
         if (amplitude != null)
@@ -132,7 +149,6 @@ public class Portal : MonoBehaviour
         yield return new WaitForFixedUpdate();
     }
 
- 
     public void AnchorTo(Transform anchor, Vector3 worldHitPoint, Quaternion worldRotation)
     {
         if (anchor == null)
@@ -145,11 +161,9 @@ public class Portal : MonoBehaviour
         anchoredLocalPosition = anchorTransform.InverseTransformPoint(worldHitPoint);
         anchoredLocalRotation = Quaternion.Inverse(anchorTransform.rotation) * worldRotation;
         anchored = true;
-
         
         transform.SetParent(anchorTransform, worldPositionStays: true);
     }
-
 
     public void DetachAnchor()
     {
@@ -157,7 +171,6 @@ public class Portal : MonoBehaviour
         anchorTransform = null;
         transform.SetParent(null, worldPositionStays: true);
     }
-
     
     public bool IsAnchored() => anchored && anchorTransform != null;
 }
