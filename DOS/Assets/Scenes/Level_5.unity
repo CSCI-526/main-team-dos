@@ -4888,6 +4888,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 810960576}
     m_Modifications:
+    - target: {fileID: 144168257659653711, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682240133817979094, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682240133817979094, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 17.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682240133817979094, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 9.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682240133817979094, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000054836
+      objectReference: {fileID: 0}
+    - target: {fileID: 2088679114502206158, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2107782070243893279, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170889166502096514, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_fontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170889166502096514, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6715195840023209667, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 29.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 6715195840023209667, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 28.52
+      objectReference: {fileID: 0}
     - target: {fileID: 7067769911198161814, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
       propertyPath: m_Name
       value: MovableObstacle
