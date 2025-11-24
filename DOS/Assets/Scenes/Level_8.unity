@@ -3163,6 +3163,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3492018143503056570, guid: e854344fa02614491919ca8386918611, type: 3}
   m_PrefabInstance: {fileID: 1577691923}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1585648847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 144168257659653711, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+  m_PrefabInstance: {fileID: 8048303602859700726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1616389833
 GameObject:
   m_ObjectHideFlags: 0
@@ -5009,6 +5014,9 @@ MonoBehaviour:
   respawnKey: 111
   maxSpeed: 17
   fallMultiplier: 2.5
+  resetPopup: {fileID: 1585648847}
+  popupOffsetY: 1
+  popupDisplayTime: 2.5
 --- !u!4 &8048303602859700731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8860414172206248023, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
