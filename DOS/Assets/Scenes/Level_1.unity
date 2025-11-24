@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 5
+      value: 4.9377556
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
@@ -1133,7 +1133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 7.2
+      value: 6.7895346
       objectReference: {fileID: 0}
     - target: {fileID: 7171117466433977785, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.x
@@ -3477,6 +3477,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674775662}
   m_CullTransparentMesh: 1
+--- !u!1 &1705600148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 144168257659653711, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+  m_PrefabInstance: {fileID: 8048303602859700726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1740991716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4856,6 +4861,9 @@ MonoBehaviour:
   respawnKey: 111
   maxSpeed: 17
   fallMultiplier: 2.5
+  resetPopup: {fileID: 1705600148}
+  popupOffsetY: 1
+  popupDisplayTime: 2.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

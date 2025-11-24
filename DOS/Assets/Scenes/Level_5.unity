@@ -5047,6 +5047,14 @@ MonoBehaviour:
   respawnKey: 111
   maxSpeed: 17
   fallMultiplier: 2.5
+  resetPopup: {fileID: 8048303602859700731}
+  popupOffsetY: 1
+  popupDisplayTime: 2.5
+--- !u!1 &8048303602859700731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 144168257659653711, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+  m_PrefabInstance: {fileID: 8048303602859700726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8048303602859700732 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8860414172206248023, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
