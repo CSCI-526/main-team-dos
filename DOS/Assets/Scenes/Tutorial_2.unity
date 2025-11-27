@@ -4572,6 +4572,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1274225166}
   m_SourcePrefab: {fileID: 100100000, guid: e29376d95aded4edd9917b22b08da725, type: 3}
+--- !u!212 &371105883162219096 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 693203330882926155, guid: e29376d95aded4edd9917b22b08da725, type: 3}
+  m_PrefabInstance: {fileID: 371105883162219095}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1510096376468490342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4652,6 +4657,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4900022366808687394, guid: b632920aa56e343438c28fd3d9ce50c2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1510096376468490344}
+    - targetCorrespondingSourceObject: {fileID: 4900022366808687394, guid: b632920aa56e343438c28fd3d9ce50c2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1510096376468490348}
   m_SourcePrefab: {fileID: 100100000, guid: b632920aa56e343438c28fd3d9ce50c2, type: 3}
 --- !u!1 &1510096376468490343 stripped
 GameObject:
@@ -4722,6 +4730,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2799946966444299563, guid: b632920aa56e343438c28fd3d9ce50c2, type: 3}
   m_PrefabInstance: {fileID: 1510096376468490342}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1510096376468490347 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2529952864991180075, guid: b632920aa56e343438c28fd3d9ce50c2, type: 3}
+  m_PrefabInstance: {fileID: 1510096376468490342}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1510096376468490348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510096376468490343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc40f0c0c63a847d9a13bdf64524e4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gateRenderer: {fileID: 371105883162219096}
+  gateClosedSprite: {fileID: 21300000, guid: c03b1f7333c4747df9212ef023c9dd61, type: 3}
+  gateOpenSprite: {fileID: 21300000, guid: e0a31ee6eb9d74eb19993ec9a472cab4, type: 3}
+  plateRenderer: {fileID: 1510096376468490347}
+  plateUpSprite: {fileID: 21300000, guid: 1b9d93aaba3cf4838aee5cb5ea094ad2, type: 3}
+  plateDownSprite: {fileID: 21300000, guid: dab41fb7d17fa44ef846a652d5e369ae, type: 3}
 --- !u!1001 &1807011866101015961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5066,6 +5097,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1185973041}
     m_Modifications:
+    - target: {fileID: 1005196292815680304, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7067769911198161814, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
       propertyPath: m_Name
       value: MovableObstacle
