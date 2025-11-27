@@ -5477,6 +5477,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1631788894}
     m_Modifications:
+    - target: {fileID: 2088679114502206158, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7067769911198161814, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
       propertyPath: m_Name
       value: MovableObstacle

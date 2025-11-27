@@ -4161,19 +4161,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.x
-      value: 3.9
+      value: 3.1212592
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.y
-      value: 0.3
+      value: 0.46883774
+      objectReference: {fileID: 0}
+    - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.059325933
+      objectReference: {fileID: 0}
+    - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.019124985
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 3.9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.3
+      value: 0.5021617
       objectReference: {fileID: 0}
     - target: {fileID: 7171117466433977785, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.x
@@ -4181,7 +4189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7171117466433977785, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.y
-      value: 0.3
+      value: 0.5021617
       objectReference: {fileID: 0}
     - target: {fileID: 9154299610681842669, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Name
@@ -4209,7 +4217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9215117233342268381, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7457504
+      value: -1.8468
       objectReference: {fileID: 0}
     - target: {fileID: 9215117233342268381, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5832,6 +5840,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1028589513}
     m_Modifications:
+    - target: {fileID: 2088679114502206158, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7067769911198161814, guid: 1ac55e153ac024e6f9044cbb41a7f011, type: 3}
       propertyPath: m_Name
       value: MovableObstacle
