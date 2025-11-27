@@ -13,10 +13,25 @@ public class PressurePlateGateController : MonoBehaviour
     public Sprite plateDownSprite;
 
     private bool isPressed = false;
+    private int objectsOnPlate = 0; // like objectsInside from the previous script
+
+    // Same logic as CanTriggerGate in GateTrigger
+    private bool CanTriggerPlate(Collider2D other)
+    {
+        return other.CompareTag("Player") ||
+               other.CompareTag("MovableObstacle") ||
+               other.CompareTag("Enemy");
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isPressed)
+        if (!CanTriggerPlate(collision))
+            return;
+
+        objectsOnPlate++;
+
+        // Only press when this is the FIRST valid object
+        if (!isPressed && objectsOnPlate > 0)
         {
             PressPlate();
         }
@@ -24,7 +39,13 @@ public class PressurePlateGateController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (isPressed)
+        if (!CanTriggerPlate(collision))
+            return;
+
+        objectsOnPlate = Mathf.Max(0, objectsOnPlate - 1);
+
+        // Only release when there are NO valid objects left
+        if (isPressed && objectsOnPlate == 0)
         {
             ReleasePlate();
         }
@@ -35,10 +56,12 @@ public class PressurePlateGateController : MonoBehaviour
         isPressed = true;
 
         // Change to "pressed" plate sprite
-        plateRenderer.sprite = plateDownSprite;
+        if (plateRenderer != null && plateDownSprite != null)
+            plateRenderer.sprite = plateDownSprite;
 
         // Change gate sprite to open
-        gateRenderer.sprite = gateOpenSprite;
+        if (gateRenderer != null && gateOpenSprite != null)
+            gateRenderer.sprite = gateOpenSprite;
     }
 
     private void ReleasePlate()
@@ -46,9 +69,11 @@ public class PressurePlateGateController : MonoBehaviour
         isPressed = false;
 
         // Change back to "unpressed" plate sprite
-        plateRenderer.sprite = plateUpSprite;
+        if (plateRenderer != null && plateUpSprite != null)
+            plateRenderer.sprite = plateUpSprite;
 
         // Change gate sprite to closed
-        gateRenderer.sprite = gateClosedSprite;
+        if (gateRenderer != null && gateClosedSprite != null)
+            gateRenderer.sprite = gateClosedSprite;
     }
 }
