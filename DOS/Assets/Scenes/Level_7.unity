@@ -2984,7 +2984,7 @@ PrefabInstance:
     - target: {fileID: 4342759139285066309, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: missionFailedPanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1197373329}
     - target: {fileID: 6048774056405761775, guid: d59fef0196fa69f46b4783b300a51eb4, type: 3}
       propertyPath: player
       value: 
@@ -3297,6 +3297,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 961104161}
   m_SourcePrefab: {fileID: 100100000, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+--- !u!1 &1197373329 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5490758933076926481, guid: 6ef9c0826dda941ff8435f0134275527, type: 3}
+  m_PrefabInstance: {fileID: 1197373328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1206707381
 PrefabInstance:
   m_ObjectHideFlags: 0
