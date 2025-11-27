@@ -62,5 +62,8 @@ TagManager:
   - name: AimPointer
     uniqueID: 905022089
     locked: 0
+  - name: BackGround
+    uniqueID: 574961409
+    locked: 0
   m_RenderingLayers:
   - Default
