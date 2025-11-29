@@ -307,7 +307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -41.8, y: 185.38}
+  m_AnchoredPosition: {x: -75, y: 190.69}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &115012232
@@ -372,8 +372,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -968,6 +968,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate
       objectReference: {fileID: 0}
+    - target: {fileID: 8540630964797899609, guid: e29376d95aded4edd9917b22b08da725, type: 3}
+      propertyPath: m_Size.x
+      value: 7.5420914
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540630964797899609, guid: e29376d95aded4edd9917b22b08da725, type: 3}
+      propertyPath: m_Size.y
+      value: 8.495822
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540630964797899609, guid: e29376d95aded4edd9917b22b08da725, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.04310465
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540630964797899609, guid: e29376d95aded4edd9917b22b08da725, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.074763775
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1251,7 +1267,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_Size.x
-      value: 18.5
+      value: 19.679901
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.17539024
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_IsTrigger
@@ -2453,7 +2481,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_Size.y
-      value: 19
+      value: 19.76534
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.031888008
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
@@ -2757,7 +2789,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 764, y: 180.69}
+  m_AnchoredPosition: {x: 806.79974, y: 180.00024}
   m_SizeDelta: {x: 188.19, y: 53.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &978935056
@@ -2890,7 +2922,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 347.20016, y: 183.68973}
+  m_AnchoredPosition: {x: 390, y: 183}
   m_SizeDelta: {x: 178.22, y: 53.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1037072588
@@ -3379,7 +3411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 550.99994, y: 182.00008}
+  m_AnchoredPosition: {x: 593.79974, y: 181.31038}
   m_SizeDelta: {x: 208.98, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1248887482
@@ -3791,19 +3823,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_Size.x
-      value: 5.512368
+      value: 5.4804792
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_Size.y
-      value: 2.1280937
+      value: 2.032425
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: 0.01594448
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_Offset.y
-      value: 0.0000019073486
+      value: -0.04783249
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x

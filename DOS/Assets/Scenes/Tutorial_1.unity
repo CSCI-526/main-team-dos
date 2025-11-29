@@ -595,8 +595,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -881,19 +881,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.x
-      value: 0.7346916
+      value: 0.7096863
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.y
-      value: 10.3210335
+      value: 10.346039
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: -0.01250267
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Offset.y
-      value: 0.017103195
+      value: -0.020404816
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
@@ -1248,6 +1248,18 @@ PrefabInstance:
     - target: {fileID: 2434337861722382115, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_TagString
       value: Side Walls
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Size.x
+      value: 20.679548
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.26256084
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 19.360086
       objectReference: {fileID: 0}
     - target: {fileID: 3492018143503056570, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_LocalScale.y
@@ -1863,7 +1875,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.x
-      value: 0.6554451
+      value: 0.6304388
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Size.y
@@ -1871,7 +1883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Offset.x
-      value: 0.023501396
+      value: 0.010998249
       objectReference: {fileID: 0}
     - target: {fileID: 508691897283865346, guid: 2e4bf195470854548a3f91e3136e8b36, type: 3}
       propertyPath: m_Offset.y
@@ -1975,8 +1987,28 @@ PrefabInstance:
       value: Side Walls
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Size.x
+      value: 1.2750626
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Size.y
+      value: 11.878702
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.01250267
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.048350573
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 19.360086
+      value: 1.2760899
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 11.730083
       objectReference: {fileID: 0}
     - target: {fileID: 3492018143503056570, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_LocalScale.y
@@ -2435,8 +2467,16 @@ PrefabInstance:
       value: Side Walls
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Size.y
+      value: 11.782003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.024173498
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 1.2760899
+      value: 0.9999983
       objectReference: {fileID: 0}
     - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
@@ -3777,6 +3817,18 @@ PrefabInstance:
     - target: {fileID: 2434337861722382115, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Size.x
+      value: 20.729559
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.012503624
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156758045438142298, guid: e854344fa02614491919ca8386918611, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 20.69766
       objectReference: {fileID: 0}
     - target: {fileID: 3492018143503056570, guid: e854344fa02614491919ca8386918611, type: 3}
       propertyPath: m_LocalPosition.x
