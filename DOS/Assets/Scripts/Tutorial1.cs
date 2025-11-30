@@ -7,16 +7,16 @@ public class Tutorial1 : MonoBehaviour
 {
     private string[] instructions =
     {
-        "Shoot Blue Portal Using Left Click / Press 'C'\nYou can only Shoot Portals on the Brown Surfaces",
-        "Shoot Orange Portal Using Right Click /Press 'V'\nYou can only Shoot Portals on the Brown Surfaces",
-        "Jump Into The Portals\nYou can use both portals to enter/exit\nYou can CLEAR the portals by pressing R",
+        "Shoot Blue Portal Using 'Left Click' / 'C'\nYou can only Shoot Portals On The Brown Surfaces",
+        "Shoot Orange Portal Using 'Right Click' /'V'\nYou can only Shoot Portals On The Brown Surfaces",
+        "Jump Into The Portals\nYou Can Use Any Portal to enter/exit\nYou Can CLEAR The portals USING 'R'",
     };
 
     private string[] instructionsColor =
     {
-        "0F108C",
-        "FF6E00",
-        "000000",
+        "FFFFFF",
+        "FFFFFF",
+        "FFFFFF",
     };
 
     private int instructionIndex = 0;

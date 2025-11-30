@@ -7,14 +7,14 @@ public class Tutorial2 : MonoBehaviour
 {
     private string[] instructions =
     {
-        "Move the Obstacle on to the Gate Trigger to Open the Gate\nYou Can Reset The Obstacle By Pressing 'O'",
-        "You can Jump Over / Teleport the Enemy away to get to the Exit.",
+        "Move The Crate On To The Trigger To Open The Gate",
+        "You Can Jump Over / Teleport The Enemy Away To Get To The Exit.",
     };
 
     private string[] instructionsColor =
     {
-        "FF0000",
-        "009D2B",
+        "FFFFFF",
+        "FFFFFF",
     };
 
     private int instructionIndex = 0;
