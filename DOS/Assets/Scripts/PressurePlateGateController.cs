@@ -12,8 +12,13 @@ public class PressurePlateGateController : MonoBehaviour
     public Sprite plateUpSprite;
     public Sprite plateDownSprite;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip platePressSound;
+    public AudioClip plateReleaseSound;
+
     private bool isPressed = false;
-    private int objectsOnPlate = 0; // like objectsInside from the previous script
+    private int objectsOnPlate = 0; 
 
     // Same logic as CanTriggerGate in GateTrigger
     private bool CanTriggerPlate(Collider2D other)
@@ -62,6 +67,12 @@ public class PressurePlateGateController : MonoBehaviour
         // Change gate sprite to open
         if (gateRenderer != null && gateOpenSprite != null)
             gateRenderer.sprite = gateOpenSprite;
+
+        // Play Press Sound
+        if (audioSource != null && platePressSound != null)
+        {
+            audioSource.PlayOneShot(platePressSound);
+        }
     }
 
     private void ReleasePlate()
@@ -75,5 +86,11 @@ public class PressurePlateGateController : MonoBehaviour
         // Change gate sprite to closed
         if (gateRenderer != null && gateClosedSprite != null)
             gateRenderer.sprite = gateClosedSprite;
+
+        // Play Release Sound
+        if (audioSource != null && plateReleaseSound != null)
+        {
+            audioSource.PlayOneShot(plateReleaseSound);
+        }
     }
 }
