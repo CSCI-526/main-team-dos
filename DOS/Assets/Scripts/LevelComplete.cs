@@ -21,6 +21,9 @@ public class LevelComplete : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip levelCompleteSound;
 
+    // Flag to prevent winning multiple times or checking after win
+    private bool isLevelCompleted = false;
+
     [System.Serializable]
     public class LeaderboardEntry
     {
@@ -31,15 +34,28 @@ public class LevelComplete : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        TryCompleteLevel(other);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        TryCompleteLevel(other);
+    }
+
+    private void TryCompleteLevel(Collider2D other)
+    {
+        if (isLevelCompleted) return;
+
         if (!other.CompareTag("Player")) return;
 
-        // Check if the player just teleported (and is invincible)
         PlayerController player = other.GetComponent<PlayerController>();
-        if (player != null && player.IsInvincible)
+        
+        if (player == null || player.IsInvincible)
         {
-            // Player is in the post-teleport grace period, ignore the trigger
             return; 
         }
+
+        isLevelCompleted = true; 
 
         timer.Stop();
         float finalTime = timer.elapsedTime;
@@ -68,6 +84,7 @@ public class LevelComplete : MonoBehaviour
 
         StartCoroutine(CheckAndRecordTime(username, newTime));
     }
+
 
     private IEnumerator CheckAndRecordTime(string username, float newTime)
     {

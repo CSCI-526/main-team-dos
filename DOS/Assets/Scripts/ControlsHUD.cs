@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ControlsHUD : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public GameObject controlsHUD;
 
@@ -11,7 +10,6 @@ public class ControlsHUD : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.H))

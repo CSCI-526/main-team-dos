@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections; // <-- ADDED THIS
-
+using System.Collections;
 public class Enemy : MonoBehaviour
 {
     public float moveSpeed = 2f;
